@@ -1,6 +1,0 @@
-c:\users\ballasi fils\documents\visual studio 2015\Projects\storygen\storygen\bin\Debug\storygen.exe.config
-c:\users\ballasi fils\documents\visual studio 2015\Projects\storygen\storygen\obj\Debug\storygen.csprojResolveAssemblyReference.cache
-C:\Users\ballasi fils\Documents\Visual Studio 2015\Projects\storygen\storygen\bin\Debug\storygen.exe
-C:\Users\ballasi fils\Documents\Visual Studio 2015\Projects\storygen\storygen\bin\Debug\storygen.pdb
-C:\Users\ballasi fils\Documents\Visual Studio 2015\Projects\storygen\storygen\obj\Debug\storygen.exe
-C:\Users\ballasi fils\Documents\Visual Studio 2015\Projects\storygen\storygen\obj\Debug\storygen.pdb

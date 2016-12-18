@@ -22,9 +22,11 @@ namespace storygen
             TopLeft = new Origin("TopLeft");
             TopCentre = new Origin("TopCentre");
             TopRight = new Origin("TopRight");
+
             CentreLeft = new Origin("CentreLeft");
             Centre = new Origin("Centre");
             CentreRight = new Origin("CentreRight");
+
             BottomLeft = new Origin("BottomLeft");
             BottomCentre = new Origin("BottomCentre");
             BottomRight = new Origin("BottomRight");
