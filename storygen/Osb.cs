@@ -15,7 +15,7 @@ namespace storygen
         public Easing Out, In, QuadIn, QuadOut, QuadInOut, CubicIn, CubicOut, CubicInOut, QuartIn,
                       QuartOut, QuartInOut, QuintIn, QuintOut, QuintInOut, SineIn, SineOut, SineInOut, ExpoIn, ExpoOut,
                       ExpoInOut, CircIn, CircOut, CircInOut, ElasticIn, ElasticOut, ElasticHalfOut, ElasticQuarterOut, ElasticInOut, BackIn,
-                      BackOut, BackInOut, BounceIn, BounceOut, BounceInOut, Linear;
+                      BackOut, BackInOut, BounceIn, BounceOut, BounceInOut;
 
         public Osb()
         {
@@ -31,7 +31,6 @@ namespace storygen
             BottomLeft = new Origin("BottomLeft"); BottomCentre = new Origin("BottomCentre"); BottomRight = new Origin("BottomRight");
 
             // Setting up Easings
-            Linear = new Easing("Linear");
             Out = new Easing("Out"); In = new Easing("In");
             QuadIn = new Easing("QuadIn"); QuadOut = new Easing("QuadOut"); QuadInOut = new Easing("QuadInOut");
             CubicIn = new Easing("CubicIn"); CubicOut = new Easing("CubicOut"); CubicInOut = new Easing("CubicInOut");
