@@ -8,13 +8,9 @@ namespace storygen
 {
     class Osb
     {
-        public Layer Background;
-        public Layer Fail;
-        public Layer Pass;
-        public Layer Foreground;
+        public Layer Background, Fail, Pass, Foreground;
 
-        public Origin Centre;
-        public Origin TopLeft;
+        public Origin TopLeft, TopCentre, TopRight, CentreLeft, Centre, CentreRight, BottomLeft, BottomCentre, BottomRight;
 
         public Osb()
         {
@@ -22,8 +18,16 @@ namespace storygen
             Fail = new Layer(1);
             Pass = new Layer(2);
             Foreground = new Layer(3);
-            Centre = new Origin("Centre");
+
             TopLeft = new Origin("TopLeft");
+            TopCentre = new Origin("TopCentre");
+            TopRight = new Origin("TopRight");
+            CentreLeft = new Origin("CentreLeft");
+            Centre = new Origin("Centre");
+            CentreRight = new Origin("CentreRight");
+            BottomLeft = new Origin("BottomLeft");
+            BottomCentre = new Origin("BottomCentre");
+            BottomRight = new Origin("BottomRight");
         }
 
         public void render()
