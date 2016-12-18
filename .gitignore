@@ -1,5 +1,5 @@
-storygen/bin/
-storygen/obj/
+storygen/bin/*
+storygen/obj/*
 
 *.suo
 *.tmp
