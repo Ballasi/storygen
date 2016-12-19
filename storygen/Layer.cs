@@ -30,14 +30,14 @@ namespace storygen
         {
             if (sprites.Count == 0) return null;
 
-            String content = "";
+            String Content = "";
             foreach (Sprite sprite in sprites)
             {
-                content += "Sprite," + layer + "," + sprite.getOrigin().getName() + ",\"" + sprite.getPath() + "\",320,240";
-                content += sprite.getAffections();
+                Content += "Sprite," + layer + "," + sprite.getOrigin().getName() + ",\"" + sprite.getPath() + "\",320,240\n";
+                Content += sprite.getAffections();
             }
 
-            return content;
+            return Content;
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace storygen
@@ -16,6 +17,8 @@ namespace storygen
             this.Path = Path;
             this.Origin = Origin;
             Affections = "";
+
+            Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.InvariantCulture;
         }
 
         public String getPath()
@@ -54,13 +57,13 @@ namespace storygen
         public void Scale(Easing Easing, int StartTime, int EndTime, double StartRatio, double EndRatio) { Scale(Easing.getID(), StartTime, EndTime, StartRatio, EndRatio); }
 
             // Events by Easing IDs
-        public void Move(int EasingID, int Time, int X, int Y) { Affections += "\n M," + EasingID + "," + Time + ",," + X + "," + Y; }
-        public void Move(int EasingID, int StartTime, int EndTime, int StartX, int StartY, int EndX, int EndY) { Affections += "\n M," + EasingID + "," + StartTime + "," + EndTime + "," + StartX + "," + StartY + "," + EndX + "," + EndY; }
+        public void Move(int EasingID, int Time, int X, int Y) { Affections += " M," + EasingID + "," + Time + ",," + X + "," + Y + "\n"; }
+        public void Move(int EasingID, int StartTime, int EndTime, int StartX, int StartY, int EndX, int EndY) { Affections += " M," + EasingID + "," + StartTime + "," + EndTime + "," + StartX + "," + StartY + "," + EndX + "," + EndY + "\n"; }
 
-        public void Fade(int EasingID, int Time, double Opacity) { Affections += "\n F," + EasingID + "," + Time + ",," + Opacity; }
-        public void Fade(int EasingID, int StartTime, int EndTime, double StartOpacity, double EndOpacity) { Affections += "\n F," + EasingID + "," + StartTime + "," + EndTime + "," + StartOpacity + "," + EndOpacity; }
+        public void Fade(int EasingID, int Time, double Opacity) { Affections += " F," + EasingID + "," + Time + ",," + Opacity + "\n"; }
+        public void Fade(int EasingID, int StartTime, int EndTime, double StartOpacity, double EndOpacity) { Affections += " F," + EasingID + "," + StartTime + "," + EndTime + "," + StartOpacity + "," + EndOpacity + "\n"; }
 
-        public void Scale(int EasingID, int Time, double Ratio) { Affections += "\n S," + EasingID + "," + Time + ",," + Ratio; }
-        public void Scale(int EasingID, int StartTime, int EndTime, double StartRatio, double EndRatio) { Affections += "\n S," + EasingID + "," + StartTime + "," + EndTime + "," + StartRatio + "," + EndRatio; }
+        public void Scale(int EasingID, int Time, double Ratio) { Affections += " S," + EasingID + "," + Time + ",," + Ratio + "\n"; }
+        public void Scale(int EasingID, int StartTime, int EndTime, double StartRatio, double EndRatio) { Affections += " S," + EasingID + "," + StartTime + "," + EndTime + "," + StartRatio + "," + EndRatio + "\n"; }
     }
 }

@@ -17,8 +17,12 @@ namespace storygen
                       ExpoInOut, CircIn, CircOut, CircInOut, ElasticIn, ElasticOut, ElasticHalfOut, ElasticQuarterOut, ElasticInOut, BackIn,
                       BackOut, BackInOut, BounceIn, BounceOut, BounceInOut;
 
+        public Random rnd;
+
         public Osb()
         {
+            rnd = new Random();
+
             // Setting up Layers
             Background = new Layer(0);
             Fail = new Layer(1);
@@ -44,21 +48,44 @@ namespace storygen
             BounceIn = new Easing("BounceIn"); BounceOut = new Easing("BounceOut"); BounceInOut = new Easing("BounceInOut");
         }
 
-        public void render()
+        public int Random(int Minimum, int Maximum)
         {
-            Console.WriteLine("[Events]\n//Background and Video events");
+            return rnd.Next(Minimum, Maximum);
+        }
 
-            Console.WriteLine("//Storyboard Layer 0 (Background)");
-            if (Background.getContent() != null) Console.WriteLine(Background.getContent());
+        public double Random(double Minimum, double Maximum)
+        {
+            return rnd.NextDouble() * (Maximum - Minimum) + Minimum;
+        }
 
-            Console.WriteLine("//Storyboard Layer 1 (Fail)");
-            if (Fail.getContent() != null) Console.WriteLine(Fail.getContent());
+        public void export(String FilePath)
+        {
+                // MAKING UP CONTENT
+            String Content = "";
 
-            Console.WriteLine("//Storyboard Layer 2 (Pass)");
-            if (Pass.getContent() != null) Console.WriteLine(Pass.getContent());
+            Content += "[Events]\n//Background and Video events\n";
 
-            Console.WriteLine("//Storyboard Layer 3 (Foreground)");
-            if (Foreground.getContent() != null) Console.WriteLine(Foreground.getContent());
+            Content += "//Storyboard Layer 0 (Background)\n";
+            if (Background.getContent() != null) Content += Background.getContent();
+
+            Content += "//Storyboard Layer 1 (Fail)\n";
+            if (Fail.getContent() != null) Content += Fail.getContent();
+
+            Content += "//Storyboard Layer 2 (Pass)\n";
+            if (Pass.getContent() != null) Content += Pass.getContent();
+
+            Content += "//Storyboard Layer 3 (Foreground)\n";
+            if (Foreground.getContent() != null) Content += Foreground.getContent();
+
+            Content += "//Storyboard Sound Samples\n";
+
+                // CHECKING PATH
+            String Path = FilePath;
+            if (Path.Length > 4 && Path.Substring(Path.Length - 1) != "/") Path += ".osb";
+            else if (Path.Length < 4 && Path.Substring(Path.Length - 1) != "/") Path += "/";
+            if (Path.Length < 4 || Path.Substring(Path.Length - 4) != ".osb") Path += "storyboard.osb";
+
+            System.IO.File.WriteAllText(Path, Content);
         }
     }
 }

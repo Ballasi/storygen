@@ -10,13 +10,19 @@ namespace storygen
     {
         public Storyboard()
         {
-            Sprite sprite = Background.createSprite("SB/dot.png", Centre);
-            sprite.Move(Out, 152, 135, 12);
-            sprite.Move(ExpoIn, 152, 192, -120, 130, 150, 130);
-            sprite.Fade(185, 0.5);
+            Sprite bg = Background.createSprite("bg.jpg", Centre);
+            bg.Fade(0, 0.2);
+            bg.Scale(201487, 0.625);
 
-            Sprite sprite2 = Foreground.createSprite("SB/dot2.png", TopLeft);
-            sprite2.Move(152, 192, 120, 130, 150, 130);
+            for (int i = 0; i < 50000; i += 100)
+            {
+                int x = Random(-100, 750);
+                double scale = Random(0.2, 0.7);
+
+                Sprite s = Foreground.createSprite("SB/dot.png", Centre);
+                s.Move(i, i + Random(1000, 2000), x, -10, x, 500);
+                s.Scale(i, scale);
+            }
         }
     }
 }
