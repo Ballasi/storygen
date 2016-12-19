@@ -50,20 +50,20 @@ namespace storygen
 
             foreach (String[] Fade in Fades)
             {
-                if (Fade.Length == 3) Output += " M," + Fade[0] + "," + Fade[1] + ",," + Fade[2] + "\n";
-                else Output += " M," + Fade[0] + "," + Fade[1] + "," + Fade[2] + "," + Fade[3] + "," + Fade[4] + "\n";
+                if (Fade.Length == 3) Output += " F," + Fade[0] + "," + Fade[1] + ",," + Fade[2] + "\n";
+                else Output += " F," + Fade[0] + "," + Fade[1] + "," + Fade[2] + "," + Fade[3] + "," + Fade[4] + "\n";
             }
 
             foreach (String[] Scale in Scales)
             {
-                if (Scale.Length == 3) Output += " M," + Scale[0] + "," + Scale[1] + ",," + Scale[2] + "\n";
-                else Output += " M," + Scale[0] + "," + Scale[1] + "," + Scale[2] + "," + Scale[3] + "," + Scale[4] + "," + "\n";
+                if (Scale.Length == 3) Output += " S," + Scale[0] + "," + Scale[1] + ",," + Scale[2] + "\n";
+                else Output += " S," + Scale[0] + "," + Scale[1] + "," + Scale[2] + "," + Scale[3] + "," + Scale[4] + "," + "\n";
             }
 
             foreach (String[] Rotate in Rotates)
             {
-                if (Rotate.Length == 3) Output += " M," + Rotate[0] + "," + Rotate[1] + ",," + Rotate[2] + "\n";
-                else Output += " M," + Rotate[0] + "," + Rotate[1] + "," + Rotate[2] + "," + Rotate[3] + "," + Rotate[4] + "," + "\n";
+                if (Rotate.Length == 3) Output += " R," + Rotate[0] + "," + Rotate[1] + ",," + Rotate[2] + "\n";
+                else Output += " R," + Rotate[0] + "," + Rotate[1] + "," + Rotate[2] + "," + Rotate[3] + "," + Rotate[4] + "," + "\n";
             }
 
             return Output;

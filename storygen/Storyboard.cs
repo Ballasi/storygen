@@ -14,7 +14,7 @@ namespace storygen
             bg.Fade(0, 0.2);
             bg.Scale(201487, 0.625);
 
-            for (int i = 0; i < 50000; i += 100)
+            for (int i = 0; i < 2000; i += 100)
             {
                 int x = Random(-100, 750);
                 double scale = Random(0.2, 0.7);
