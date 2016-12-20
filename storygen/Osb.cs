@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace storygen
@@ -21,6 +22,7 @@ namespace storygen
 
         public Osb()
         {
+            Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.InvariantCulture;
             rnd = new Random();
 
             // Setting up Layers

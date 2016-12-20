@@ -28,8 +28,6 @@ namespace storygen
 
         public String getContent()
         {
-            if (sprites.Count == 0) return null;
-
             String Content = "";
             foreach (Sprite sprite in sprites)
             {
