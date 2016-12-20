@@ -35,14 +35,7 @@ namespace storygen
             int TryAt = 63072;
 
             Sprite circle = Foreground.CreateSprite("SB/dot.png", Centre);
-            circle.MoveX(62190, 64308, 10, 500);
-            circle.MoveY(62190, 400);
-            circle.Fade(62190, 65014, 1.0, 0.0);
-
-            Sprite circle2 = Foreground.CreateSprite("SB/dot.png", Centre);
-            circle2.MoveX(TryAt, (int) circle.getXPositionAt(TryAt));
-            circle2.MoveY(ExpoOut, TryAt, TryAt + 1000, 400, 300);
-            circle2.Fade(TryAt + 10000, circle.getOpacityAt(TryAt));
+            circle.Color(62190, 65014, 0.5, 1.0, 0.0, 0.2, 0.2, 1.0);
         }
     }
 }

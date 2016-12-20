@@ -8,7 +8,7 @@ namespace storygen
 {
     class Affectations
     {
-        public List<String[]> Movements, MovementsX, MovementsY, Fades, Scales, VecScales, Rotations, Loops;
+        public List<String[]> Movements, MovementsX, MovementsY, Fades, Scales, VecScales, Rotations, Loops, Colors;
         String Content;
         bool InLoop;
 
@@ -22,6 +22,7 @@ namespace storygen
             VecScales = new List<String[]>();
             Rotations = new List<String[]>();
             Loops = new List<String[]>();
+            Colors = new List<String[]>();
 
             InLoop = false;
             Content = null;
@@ -79,6 +80,12 @@ namespace storygen
         {
             Rotations.Add(Parameters);
             Content += getEquivalentLine("R", Parameters);
+        }
+
+        public void AddColor(String[] Parameters)
+        {
+            Colors.Add(Parameters);
+            Content += getEquivalentLine("C", Parameters);
         }
 
         private String getEquivalentLine(String Type, String[] Parameters)
