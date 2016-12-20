@@ -32,7 +32,7 @@ namespace storygen
                 sm.Scale(Out, 75, 705, 0.64, 0.625);
             sm.EndLoop();
             
-            int TryAt = 64131;
+            int TryAt = 64484;
 
             Sprite circle = Foreground.CreateSprite("bg.jpg", Centre);
             circle.Fade(62190, 1.0);

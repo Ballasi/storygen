@@ -141,7 +141,7 @@ namespace storygen
                 {
                     int FuncEnd = Int32.Parse(Affectation[ToCheck[2]]);
 
-                    if (Time > FuncStart && Time < FuncEnd)
+                    if (Time > FuncStart && Time <= FuncEnd)
                     {
                         double FuncPosStart = Double.Parse(Affectation[ToCheck[3]]);
                         double FuncPosEnd = Double.Parse(Affectation[ToCheck[4]]);
