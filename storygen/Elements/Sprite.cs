@@ -45,6 +45,116 @@ namespace storygen
             Affectations.EndLoop();
         }
 
+        public double getXPositionAt(int Time)
+        {
+            double Position = 360;
+
+            foreach (String[] Movement in Affectations.Movements)
+            {
+                int EasingID = Int32.Parse(Movement[0]);
+                int FuncStart = Int32.Parse(Movement[1]);
+
+                if (Movement.Length == 5)
+                {
+                    int FuncPos = Int32.Parse(Movement[3]);
+                    if (FuncStart <= Time) Position = FuncPos;
+                }
+                else
+                {
+                    int FuncEnd = Int32.Parse(Movement[2]);
+                    if (Time > FuncStart && Time < FuncEnd)
+                    {
+                        int FuncPosStart = Int32.Parse(Movement[3]);
+                        int FuncPosEnd = Int32.Parse(Movement[5]);
+
+                        Position = Compare(Time, EasingID, FuncStart, FuncEnd, FuncPosStart, FuncPosEnd);
+                    }
+                    else if (Time > FuncEnd)
+                    {
+                        int FuncPos = Int32.Parse(Movement[5]);
+                        if (FuncStart <= Time) Position = FuncPos;
+                    }
+                }
+            }
+
+            return Position;
+        }
+
+        public double getYPositionAt(int Time)
+        {
+            double Position = 360;
+
+            foreach (String[] Movement in Affectations.Movements)
+            {
+                int EasingID = Int32.Parse(Movement[0]);
+                int FuncStart = Int32.Parse(Movement[1]);
+
+                if (Movement.Length == 5)
+                {
+                    int FuncPos = Int32.Parse(Movement[4]);
+                    if (FuncStart <= Time) Position = FuncPos;
+                }
+                else
+                {
+                    int FuncEnd = Int32.Parse(Movement[2]);
+                    if (Time > FuncStart && Time < FuncEnd)
+                    {
+                        int FuncPosStart = Int32.Parse(Movement[4]);
+                        int FuncPosEnd = Int32.Parse(Movement[6]);
+
+                        Position = Compare(Time, EasingID, FuncStart, FuncEnd, FuncPosStart, FuncPosEnd);
+                    }
+                    else if (Time > FuncEnd)
+                    {
+                        int FuncPos = Int32.Parse(Movement[6]);
+                        if (FuncStart <= Time) Position = FuncPos;
+                    }
+                }
+            }
+
+            return Position;
+        }
+
+        public double Compare(double Time, double EasingID, double FuncStart, double FuncEnd, double FuncPosStart, double FuncPosEnd)
+        {
+            if (EasingID < 3)
+            {
+                double startVelocityMultipler = 0, endVelocityMultipler = 0;
+                if (EasingID == 0)
+                {
+                    startVelocityMultipler = 1;
+                    endVelocityMultipler = 1;
+                }
+                if (EasingID == 1)
+                {
+                    startVelocityMultipler = 2;
+                    endVelocityMultipler = 0;
+                }
+                if (EasingID == 2)
+                {
+                    startVelocityMultipler = 0;
+                    endVelocityMultipler = 2;
+                }
+                double shift = FuncPosEnd - FuncPosStart;
+                double time = FuncEnd - FuncStart;
+                double startV = (shift / time) * startVelocityMultipler;
+                double endV = (shift / time) * endVelocityMultipler;
+                double elapsedTime = Time - FuncStart;
+                double acceleration = (endV - startV) / (FuncEnd - FuncStart);
+                return FuncPosStart + startV * elapsedTime + acceleration * Math.Pow(elapsedTime, 2) / 2;
+            }
+            if (EasingID == 12)
+            {
+                Time -= FuncStart;
+                double duration = FuncEnd - FuncStart;
+                double change = FuncPosEnd - FuncPosStart;
+                Time /= duration;
+                return change * Math.Pow(Time, 5) + FuncPosStart;
+            }
+            else
+                return 0;
+        }
+
         // Linear Events
         public void Move(int Time, int X, int Y)
             { Move(0, Time, X, Y); }

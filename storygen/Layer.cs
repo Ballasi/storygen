@@ -19,7 +19,7 @@ namespace storygen
             else                layer = "Foreground";
         }
 
-        public Sprite createSprite(String Path, Origin Origin)
+        public Sprite CreateSprite(String Path, Origin Origin)
         {
             Sprite sprite = new Sprite(Path, Origin);
             sprites.Add(sprite);

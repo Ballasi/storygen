@@ -8,7 +8,7 @@ namespace storygen
 {
     class Affectations
     {
-        List<String[]> Movements, Fades, Scales, Rotates, Loops;
+        public List<String[]> Movements, Fades, Scales, Rotates, Loops;
         String Content;
         bool InLoop;
 
