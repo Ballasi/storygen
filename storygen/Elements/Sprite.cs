@@ -47,75 +47,121 @@ namespace storygen
 
         public double getXPositionAt(int Time)
         {
-            double Position = 360;
+            double[] Output;
+            int InitialValue = 360;
+            double Position = InitialValue;
 
-            foreach (String[] Movement in Affectations.Movements)
+            if (Affectations.Movements != null && Affectations.MovementsX == null)
             {
-                int EasingID = Int32.Parse(Movement[0]);
-                int FuncStart = Int32.Parse(Movement[1]);
-
-                if (Movement.Length == 5)
-                {
-                    int FuncPos = Int32.Parse(Movement[3]);
-                    if (FuncStart <= Time) Position = FuncPos;
-                }
-                else
-                {
-                    int FuncEnd = Int32.Parse(Movement[2]);
-                    if (Time > FuncStart && Time < FuncEnd)
-                    {
-                        int FuncPosStart = Int32.Parse(Movement[3]);
-                        int FuncPosEnd = Int32.Parse(Movement[5]);
-
-                        Position = Compare(Time, EasingID, FuncStart, FuncEnd, FuncPosStart, FuncPosEnd);
-                    }
-                    else if (Time > FuncEnd)
-                    {
-                        int FuncPos = Int32.Parse(Movement[5]);
-                        if (FuncStart <= Time) Position = FuncPos;
-                    }
-                }
+                Output = Check(Time, InitialValue, Affectations.Movements, new int[] { 0, 1, 2, 3, 5 });
+                Position = Output[0];
             }
-
+            else if (Affectations.MovementsX != null)
+            {
+                Output = Check(Time, InitialValue, Affectations.MovementsX, new int[] { 0, 1, 2, 3, 4 });
+                Position = Output[0];
+            }
+            
             return Position;
         }
 
         public double getYPositionAt(int Time)
         {
-            double Position = 360;
+            double[] Output;
+            int InitialValue = 360;
+            double Position = InitialValue;
 
-            foreach (String[] Movement in Affectations.Movements)
+            if (Affectations.Movements != null && Affectations.MovementsX == null)
             {
-                int EasingID = Int32.Parse(Movement[0]);
-                int FuncStart = Int32.Parse(Movement[1]);
-
-                if (Movement.Length == 5)
-                {
-                    int FuncPos = Int32.Parse(Movement[4]);
-                    if (FuncStart <= Time) Position = FuncPos;
-                }
-                else
-                {
-                    int FuncEnd = Int32.Parse(Movement[2]);
-                    if (Time > FuncStart && Time < FuncEnd)
-                    {
-                        int FuncPosStart = Int32.Parse(Movement[4]);
-                        int FuncPosEnd = Int32.Parse(Movement[6]);
-
-                        Position = Compare(Time, EasingID, FuncStart, FuncEnd, FuncPosStart, FuncPosEnd);
-                    }
-                    else if (Time > FuncEnd)
-                    {
-                        int FuncPos = Int32.Parse(Movement[6]);
-                        if (FuncStart <= Time) Position = FuncPos;
-                    }
-                }
+                Output = Check(Time, InitialValue, Affectations.Movements, new int[] { 0, 1, 2, 4, 6 });
+                Position = Output[0];
+            }
+            else if (Affectations.MovementsX != null)
+            {
+                Output = Check(Time, InitialValue, Affectations.MovementsY, new int[] { 0, 1, 2, 3, 4 });
+                Position = Output[0];
             }
 
             return Position;
         }
 
-        public double Compare(double Time, double EasingID, double FuncStart, double FuncEnd, double FuncPosStart, double FuncPosEnd)
+        public double getFadeAt(int Time)
+        {
+            double[] Output;
+            double InitialValue = 1.0;
+            double Position = InitialValue;
+
+            Output = Check(Time, InitialValue, Affectations.Fades, new int[] { 0, 1, 2, 3, 4 });
+            Position = Output[0];
+
+            return Position;
+        }
+
+        public double getScaleAt(int Time)
+        {
+            double[] Output;
+            double InitialValue = 1.0;
+            double Position = InitialValue;
+
+            Output = Check(Time, InitialValue, Affectations.Scales, new int[] { 0, 1, 2, 3, 4 });
+            Position = Output[0];
+
+            return Position;
+        }
+
+        public double getRotationAt(int Time)
+        {
+            double[] Output;
+            double InitialValue = 1.0;
+            double Position = InitialValue;
+
+            Output = Check(Time, InitialValue, Affectations.Rotations, new int[] { 0, 1, 2, 3, 4 });
+            Position = Output[0];
+
+            return Position;
+        }
+
+        private double[] Check(int Time, double InitialValue, List<String[]> Affectations, int[] ToCheck)
+        {
+            double Output = InitialValue;
+            double At = 0;
+
+            foreach (String[] Affectation in Affectations)
+            {
+                int EasingID = Int32.Parse(Affectation[ToCheck[0]]);
+                int FuncStart = Int32.Parse(Affectation[ToCheck[1]]);
+
+                if (Affectation[3] == "")
+                {
+                    int FuncPos = Int32.Parse(Affectation[ToCheck[3]]);
+                    At = FuncStart;
+                    if (FuncStart <= Time) Output = FuncPos;
+                }
+                else
+                {
+                    int FuncEnd = Int32.Parse(Affectation[ToCheck[2]]);
+
+                    if (Time > FuncStart && Time < FuncEnd)
+                    {
+                        double FuncPosStart = Double.Parse(Affectation[ToCheck[3]]);
+                        double FuncPosEnd = Double.Parse(Affectation[ToCheck[4]]);
+
+                        Output = Compare(Time, EasingID, FuncStart, FuncEnd, FuncPosStart, FuncPosEnd);
+                    }
+                    else if (Time > FuncEnd)
+                    {
+                        int FuncPos = Int32.Parse(Affectation[ToCheck[4]]);
+                        if (FuncStart <= Time) Output = FuncPos;
+                    }
+
+                    At = FuncEnd;
+                }
+            }
+
+            return new double[] { Output, At };
+        }
+
+        private double Compare(double Time, double EasingID, double FuncStart, double FuncEnd, double FuncPosStart, double FuncPosEnd)
         {
             if (EasingID < 3)
             {
@@ -143,6 +189,7 @@ namespace storygen
                 double acceleration = (endV - startV) / (FuncEnd - FuncStart);
                 return FuncPosStart + startV * elapsedTime + acceleration * Math.Pow(elapsedTime, 2) / 2;
             }
+
             if (EasingID == 12)
             {
                 Time -= FuncStart;

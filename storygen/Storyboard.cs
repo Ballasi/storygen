@@ -11,8 +11,8 @@ namespace storygen
         public Storyboard()
         {
             Sprite bg = Background.CreateSprite("bg.jpg", Centre);
-            bg.Fade(0, 1.0);
-            bg.Scale(201487, 0.625);
+            bg.Fade(0, 0.5);
+            bg.Scale(62190, 0.625);
 
             for (int i = 0; i < 11367; i += 100)
             {
@@ -31,14 +31,22 @@ namespace storygen
                 sm.Fade(Out, 75, 705, 0.4, 0.0);
                 sm.Scale(Out, 75, 705, 0.64, 0.625);
             sm.EndLoop();
+            
+            int TryAt = 64131;
 
-            Sprite circle = Foreground.CreateSprite("SB/dot.png", Centre);
-            circle.Move(0, 39602, 45000, 50, 50, 400, 300);
+            Sprite circle = Foreground.CreateSprite("bg.jpg", Centre);
+            circle.Fade(62190, 1.0);
+            circle.MoveX(62190, 64308, 10, 500);
+            circle.MoveY(12, 62896, 65014, 400, 100);
+            circle.Scale(62190, 65014, 0.1, 0.02);
+            circle.Fade(TryAt, 0.0);
+            circle.Rotate(12, 62190, 65014, 0, 2 * Math.PI);
 
-            Sprite circle2 = Foreground.CreateSprite("SB/dot.png", Centre);
-            circle2.Move(42000, (int) circle.getXPositionAt(42000), (int) circle.getYPositionAt(42000));
-            circle2.Scale(ExpoOut, 42000, 42500, 1.0, 5.0);
-            circle2.Fade(42000, 42500, 1.0, 0.0);
+            Sprite circle2 = Foreground.CreateSprite("bg.jpg", Centre);
+            circle2.Move(TryAt, (int) circle.getXPositionAt(TryAt), (int) circle.getYPositionAt(TryAt));
+            circle2.Scale(ExpoOut, TryAt, circle.getScaleAt(TryAt));
+            circle2.Fade(TryAt, TryAt + 500, 1.0, 0.0);
+            circle2.Rotate(TryAt, circle.getRotationAt(TryAt));
         }
     }
 }
