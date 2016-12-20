@@ -42,6 +42,18 @@ namespace storygen
             Content += getEquivalentLine("M", Parameters);
         }
 
+        public void AddMovementX(String[] Parameters)
+        {
+            Movements.Add(Parameters);
+            Content += getEquivalentLine("MX", Parameters);
+        }
+
+        public void AddMovementY(String[] Parameters)
+        {
+            Movements.Add(Parameters);
+            Content += getEquivalentLine("MY", Parameters);
+        }
+
         public void AddFading(String[] Parameters)
         {
             Fades.Add(Parameters);

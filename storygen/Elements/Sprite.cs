@@ -51,6 +51,16 @@ namespace storygen
         public void Move(int StartTime, int EndTime, int StartX, int StartY, int EndX, int EndY)
             { Move(0, StartTime, EndTime, StartX, StartY, EndX, EndY); }
 
+        public void MoveX(int Time, int X)
+            { MoveX(0, Time, X); }
+        public void MoveX(int StartTime, int EndTime, int StartX, int EndX)
+            { MoveX(0, StartTime, EndTime, StartX, EndX); }
+
+        public void MoveY(int Time, int Y)
+            { MoveY(0, Time, Y); }
+        public void MoveY(int StartTime, int EndTime, int StartY, int EndY)
+            { MoveY(0, StartTime, EndTime, StartY, EndY); }
+
         public void Fade(int Time, double Opacity)
             { Fade(0, Time, Opacity); }
         public void Fade(int StartTime, int EndTime, double StartOpacity, double EndOpacity)
@@ -72,6 +82,16 @@ namespace storygen
         public void Move(Easing Easing, int StartTime, int EndTime, int StartX, int StartY, int EndX, int EndY)
             { Move(Easing.getID(), StartTime, EndTime, StartX, StartY, EndX, EndY); }
 
+        public void MoveX(Easing Easing, int Time, int X)
+            { MoveX(Easing.getID(), Time, X); }
+        public void MoveX(Easing Easing, int StartTime, int EndTime, int StartX, int EndX)
+            { MoveX(Easing.getID(), StartTime, EndTime, StartX, EndX); }
+
+        public void MoveY(Easing Easing, int Time, int Y)
+            { MoveY(Easing.getID(), Time, Y); }
+        public void MoveY(Easing Easing, int StartTime, int EndTime, int StartY, int EndY)
+            { MoveY(Easing.getID(), StartTime, EndTime, StartY, EndY); }
+
         public void Fade(Easing Easing, int Time, double Opacity)
             { Fade(Easing.getID(), Time, Opacity); }
         public void Fade(Easing Easing, int StartTime, int EndTime, double StartOpacity, double EndOpacity)
@@ -92,6 +112,16 @@ namespace storygen
             { Affectations.AddMovement(new String[] { EasingID.ToString(), Time.ToString(), "", X.ToString(), Y.ToString() }); }
         public void Move(int EasingID, int StartTime, int EndTime, int StartX, int StartY, int EndX, int EndY)
             { Affectations.AddMovement(new String[] { EasingID.ToString(), StartTime.ToString(), EndTime.ToString(), StartX.ToString(), StartY.ToString(), EndX.ToString(), EndY.ToString() });  }
+
+        public void MoveX(int EasingID, int Time, int X)
+            { Affectations.AddMovementX(new String[] { EasingID.ToString(), Time.ToString(), "", X.ToString() }); }
+        public void MoveX(int EasingID, int StartTime, int EndTime, int StartX, int EndX)
+            { Affectations.AddMovementX(new String[] { EasingID.ToString(), StartTime.ToString(), EndTime.ToString(), StartX.ToString(), EndX.ToString() }); }
+
+        public void MoveY(int EasingID, int Time, int Y)
+            { Affectations.AddMovementY(new String[] { EasingID.ToString(), Time.ToString(), "", Y.ToString() }); }
+        public void MoveY(int EasingID, int StartTime, int EndTime, int StartY, int EndY)
+            { Affectations.AddMovementY(new String[] { EasingID.ToString(), StartTime.ToString(), EndTime.ToString(), StartY.ToString(), EndY.ToString() }); }
 
         public void Fade(int EasingID, int Time, double Opacity)
             { Affectations.AddFading(new String[] { EasingID.ToString(), Time.ToString(), "", Opacity.ToString() }); }
