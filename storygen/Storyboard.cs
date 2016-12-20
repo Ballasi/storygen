@@ -32,21 +32,17 @@ namespace storygen
                 sm.Scale(Out, 75, 705, 0.64, 0.625);
             sm.EndLoop();
             
-            int TryAt = 64484;
+            int TryAt = 63072;
 
-            Sprite circle = Foreground.CreateSprite("bg.jpg", Centre);
-            circle.Fade(62190, 1.0);
+            Sprite circle = Foreground.CreateSprite("SB/dot.png", Centre);
             circle.MoveX(62190, 64308, 10, 500);
-            circle.MoveY(12, 62896, 65014, 400, 100);
-            circle.Scale(62190, 65014, 0.1, 0.02);
-            circle.Fade(TryAt, 0.0);
-            circle.Rotate(12, 62190, 65014, 0, 2 * Math.PI);
+            circle.MoveY(62190, 400);
+            circle.Fade(62190, 65014, 1.0, 0.0);
 
-            Sprite circle2 = Foreground.CreateSprite("bg.jpg", Centre);
-            circle2.Move(TryAt, (int) circle.getXPositionAt(TryAt), (int) circle.getYPositionAt(TryAt));
-            circle2.Scale(ExpoOut, TryAt, circle.getScaleAt(TryAt));
-            circle2.Fade(TryAt, TryAt + 500, 1.0, 0.0);
-            circle2.Rotate(TryAt, circle.getRotationAt(TryAt));
+            Sprite circle2 = Foreground.CreateSprite("SB/dot.png", Centre);
+            circle2.MoveX(TryAt, (int) circle.getXPositionAt(TryAt));
+            circle2.MoveY(ExpoOut, TryAt, TryAt + 1000, 400, 300);
+            circle2.Fade(TryAt + 10000, circle.getOpacityAt(TryAt));
         }
     }
 }

@@ -71,12 +71,12 @@ namespace storygen
             int InitialValue = 360;
             double Position = InitialValue;
 
-            if (Affectations.Movements != null && Affectations.MovementsX == null)
+            if (Affectations.Movements != null && Affectations.MovementsY == null)
             {
                 Output = Check(Time, InitialValue, Affectations.Movements, new int[] { 0, 1, 2, 4, 6 });
                 Position = Output[0];
             }
-            else if (Affectations.MovementsX != null)
+            else if (Affectations.MovementsY != null)
             {
                 Output = Check(Time, InitialValue, Affectations.MovementsY, new int[] { 0, 1, 2, 3, 4 });
                 Position = Output[0];
@@ -85,7 +85,7 @@ namespace storygen
             return Position;
         }
 
-        public double getFadeAt(int Time)
+        public double getOpacityAt(int Time)
         {
             double[] Output;
             double InitialValue = 1.0;
@@ -109,10 +109,50 @@ namespace storygen
             return Position;
         }
 
+        public double getXScaleAt(int Time)
+        {
+            double[] Output;
+            int InitialValue = 360;
+            double Position = InitialValue;
+
+            if (Affectations.Scales != null && Affectations.VecScales == null)
+            {
+                Output = Check(Time, InitialValue, Affectations.Movements, new int[] { 0, 1, 2, 3, 4 });
+                Position = Output[0];
+            }
+            else if (Affectations.VecScales != null)
+            {
+                Output = Check(Time, InitialValue, Affectations.VecScales, new int[] { 0, 1, 2, 3, 5 });
+                Position = Output[0];
+            }
+
+            return Position;
+        }
+
+        public double getYScaleAt(int Time)
+        {
+            double[] Output;
+            int InitialValue = 360;
+            double Position = InitialValue;
+
+            if (Affectations.Scales != null && Affectations.VecScales == null)
+            {
+                Output = Check(Time, InitialValue, Affectations.Movements, new int[] { 0, 1, 2, 3, 4 });
+                Position = Output[0];
+            }
+            else if (Affectations.VecScales != null)
+            {
+                Output = Check(Time, InitialValue, Affectations.VecScales, new int[] { 0, 1, 2, 4, 6 });
+                Position = Output[0];
+            }
+
+            return Position;
+        }
+
         public double getRotationAt(int Time)
         {
             double[] Output;
-            double InitialValue = 1.0;
+            double InitialValue = 0.0;
             double Position = InitialValue;
 
             Output = Check(Time, InitialValue, Affectations.Rotations, new int[] { 0, 1, 2, 3, 4 });
@@ -202,7 +242,7 @@ namespace storygen
                 return 0;
         }
 
-        // Linear Events
+            // Linear Events
         public void Move(int Time, int X, int Y)
             { Move(0, Time, X, Y); }
         public void Move(int StartTime, int EndTime, int StartX, int StartY, int EndX, int EndY)
@@ -228,12 +268,17 @@ namespace storygen
         public void Scale(int StartTime, int EndTime, double StartRatio, double EndRatio)
             { Scale(0, StartTime, EndTime, StartRatio, EndRatio); }
 
+        public void ScaleVec(int Time, double X, double Y)
+            { ScaleVec(0, Time, X, Y); }
+        public void ScaleVec(int StartTime, int EndTime, double StartX, double StartY, double EndX, double EndY)
+            { ScaleVec(0, StartTime, EndTime, StartX, StartY, EndX, EndY); }
+
         public void Rotate(int Time, double Angle)
             { Rotate(0, Time, Angle); }
         public void Rotate(int StartTime, int EndTime, double StartAngle, double EndAngle)
             { Rotate(0, StartTime, EndTime, StartAngle, EndAngle); }
 
-        // Events by Easings
+            // Events by Easings
         public void Move(Easing Easing, int Time, int X, int Y)
             { Move(Easing.getID(), Time, X, Y); }
         public void Move(Easing Easing, int StartTime, int EndTime, int StartX, int StartY, int EndX, int EndY)
@@ -259,12 +304,17 @@ namespace storygen
         public void Scale(Easing Easing, int StartTime, int EndTime, double StartRatio, double EndRatio)
             { Scale(Easing.getID(), StartTime, EndTime, StartRatio, EndRatio); }
 
+        public void ScaleVec(Easing Easing, int Time, double X, double Y)
+            { ScaleVec(Easing.getID(), Time, X, Y); }
+        public void ScaleVec(Easing Easing, int StartTime, int EndTime, double StartX, double StartY, double EndX, double EndY)
+            { ScaleVec(Easing.getID(), StartTime, EndTime, StartX, StartY, EndX, EndY); }
+
         public void Rotate(Easing Easing, int Time, double Angle)
             { Rotate(Easing.getID(), Time, Angle); }
         public void Rotate(Easing Easing, int StartTime, int EndTime, double StartAngle, double EndAngle)
             { Rotate(Easing.getID(), StartTime, EndTime, StartAngle, EndAngle); }
 
-        // Events by Easing IDs
+            // Events by Easing IDs
         public void Move(int EasingID, int Time, int X, int Y)
             { Affectations.AddMovement(new String[] { EasingID.ToString(), Time.ToString(), "", X.ToString(), Y.ToString() }); }
         public void Move(int EasingID, int StartTime, int EndTime, int StartX, int StartY, int EndX, int EndY)
@@ -289,6 +339,11 @@ namespace storygen
             { Affectations.AddScaling(new String[] { EasingID.ToString(), Time.ToString(), "", Ratio.ToString() }); }
         public void Scale(int EasingID, int StartTime, int EndTime, double StartRatio, double EndRatio)
             { Affectations.AddScaling(new String[] { EasingID.ToString(), StartTime.ToString(), EndTime.ToString(), StartRatio.ToString(), EndRatio.ToString() }); }
+
+        public void ScaleVec(int EasingID, int Time, double X, double Y)
+            { Affectations.AddVecScaling(new String[] { EasingID.ToString(), Time.ToString(), "", X.ToString(), Y.ToString() }); }
+        public void ScaleVec(int EasingID, int StartTime, int EndTime, double StartX, double StartY, double EndX, double EndY)
+            { Affectations.AddVecScaling(new String[] { EasingID.ToString(), StartTime.ToString(), EndTime.ToString(), StartX.ToString(), StartY.ToString(), EndX.ToString(), EndY.ToString() }); }
 
         public void Rotate(int EasingID, int Time, double Angle)
             { Affectations.AddRotation(new String[] { EasingID.ToString(), Time.ToString(), "", Angle.ToString() }); }
