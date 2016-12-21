@@ -1,4 +1,5 @@
-﻿using System;
+﻿using storygen.Other;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -45,33 +46,47 @@ namespace storygen
             Affectations.EndLoop();
         }
 
-        public double getXPositionAt(int Time)
+        public Vector2 getPositionAt(int Time)
         {
             double[] Output;
             int InitialValue = 360;
-            double Position = InitialValue;
+            double PositionX = InitialValue;
 
-            if (Affectations.Movements != null && Affectations.MovementsX == null)
+            if (Affectations.Movements != null)
             {
                 Output = Check(Time, InitialValue, Affectations.Movements, new int[] { 0, 1, 2, 3, 5 });
-                Position = Output[0];
+                PositionX = Output[0];
             }
             else if (Affectations.MovementsX != null)
             {
                 Output = Check(Time, InitialValue, Affectations.MovementsX, new int[] { 0, 1, 2, 3, 4 });
-                Position = Output[0];
+                PositionX = Output[0];
             }
             
-            return Position;
+            InitialValue = 240;
+            double PositionY = InitialValue;
+
+            if (Affectations.Movements != null)
+            {
+                Output = Check(Time, InitialValue, Affectations.Movements, new int[] { 0, 1, 2, 4, 6 });
+                PositionY = Output[0];
+            }
+            else if (Affectations.MovementsY != null)
+            {
+                Output = Check(Time, InitialValue, Affectations.MovementsY, new int[] { 0, 1, 2, 3, 4 });
+                PositionY = Output[0];
+            }
+
+            return new Vector2( PositionX, PositionY );
         }
 
         public double getYPositionAt(int Time)
         {
             double[] Output;
-            int InitialValue = 360;
+            int InitialValue = 240;
             double Position = InitialValue;
 
-            if (Affectations.Movements != null && Affectations.MovementsY == null)
+            if (Affectations.Movements != null)
             {
                 Output = Check(Time, InitialValue, Affectations.Movements, new int[] { 0, 1, 2, 4, 6 });
                 Position = Output[0];

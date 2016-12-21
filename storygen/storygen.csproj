@@ -44,10 +44,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Elements\Affectations.cs" />
-    <Compile Include="Easing.cs" />
+    <Compile Include="Other\Vector2.cs" />
+    <Compile Include="Storyboard\Easing.cs" />
     <Compile Include="MainClass.cs" />
-    <Compile Include="Layer.cs" />
-    <Compile Include="Origin.cs" />
+    <Compile Include="Storyboard\Layer.cs" />
+    <Compile Include="Storyboard\Origin.cs" />
     <Compile Include="Osb.cs" />
     <Compile Include="Elements\Sprite.cs" />
     <Compile Include="Storyboard.cs" />
@@ -56,6 +57,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
