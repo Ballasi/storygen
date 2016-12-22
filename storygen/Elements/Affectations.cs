@@ -8,9 +8,9 @@ namespace storygen
 {
     class Affectations
     {
-        public List<String[]> Movements, MovementsX, MovementsY, Fades, Scales, VecScales, Rotations, Loops, Colors, Parameters;
+        public List<String[]> Movements, MovementsX, MovementsY, Fades, Scales, VecScales, Rotations, Loops, Triggers, Colors, Parameters;
         String Content;
-        bool InLoop;
+        bool InLoop, InTrigger;
 
         public Affectations()
         {
@@ -21,11 +21,13 @@ namespace storygen
             Scales = new List<String[]>();
             VecScales = new List<String[]>();
             Rotations = new List<String[]>();
-            Loops = new List<String[]>();
             Colors = new List<String[]>();
             Parameters = new List<String[]>();
+            Loops = new List<String[]>();
+            Triggers = new List<String[]>();
 
             InLoop = false;
+            InTrigger = false;
             Content = null;
         }
 
@@ -39,6 +41,18 @@ namespace storygen
         public void EndLoop()
         {
             InLoop = false;
+        }
+
+        public void StartTrigger(String[] Parameters)
+        {
+            Triggers.Add(Parameters);
+            Content += getEquivalentLine("T", Parameters);
+            InTrigger = true;
+        }
+
+        public void EndTrigger()
+        {
+            InTrigger = false;
         }
 
         public void AddMovement(String[] Parameters)

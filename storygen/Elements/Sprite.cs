@@ -46,6 +46,16 @@ namespace storygen
             Affectations.EndLoop();
         }
 
+        public void OnTrigger(int StartTime, int EndTime, String TriggerType)
+        {
+            Affectations.StartTrigger(new String[] { TriggerType, StartTime.ToString(), EndTime.ToString() });
+        }
+
+        public void EndTrigger()
+        {
+            Affectations.EndTrigger();
+        }
+
         public Vector2 getPositionAt(int Time)
         {
             double[] Output;
