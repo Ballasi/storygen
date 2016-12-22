@@ -298,6 +298,13 @@ namespace storygen
         public void Color(int StartTime, int EndTime, double StartR, double StartG, double StartB, double EndR, double EndG, double EndB)
             { Color(0, StartTime, EndTime, StartR, StartG, StartB, EndR, EndG, EndB); }
 
+        public void HFlip(int StartTime, int EndTime)
+            { HFlip(0, StartTime, EndTime); }
+        public void VFlip(int StartTime, int EndTime)
+            { VFlip(0, StartTime, EndTime); }
+        public void Additive(int StartTime, int EndTime)
+            { Additive(0, StartTime, EndTime); }
+
         // Events by Easings
         public void Move(Easing Easing, int StartTime, int EndTime, int StartX, int StartY, int EndX, int EndY)
             { Move(Easing.getID(), StartTime, EndTime, StartX, StartY, EndX, EndY); }
@@ -363,5 +370,12 @@ namespace storygen
             { Affectations.AddColor(new String[] { EasingID.ToString(), Time.ToString(), "", ((int) (R * 255)).ToString(), ((int)(G * 255)).ToString(), ((int)(B * 255)).ToString() }); }
         public void Color(int EasingID, int StartTime, int EndTime, double StartR, double StartG, double StartB, double EndR, double EndG, double EndB)
             { Affectations.AddColor(new String[] { EasingID.ToString(), StartTime.ToString(), EndTime.ToString(), ((int)(StartR * 255)).ToString(), ((int)(StartG * 255)).ToString(), ((int)(StartB * 255)).ToString(), ((int)(EndR * 255)).ToString(), ((int)(EndG * 255)).ToString(), ((int)(EndB * 255)).ToString() }); }
+
+        public void HFlip(int EasingID, int StartTime, int EndTime)
+            { Affectations.AddHFlip(new String[] { EasingID.ToString(), StartTime.ToString(), EndTime.ToString(), "H" }); }
+        public void VFlip(int EasingID, int StartTime, int EndTime)
+            { Affectations.AddHFlip(new String[] { EasingID.ToString(), StartTime.ToString(), EndTime.ToString(), "V" }); }
+        public void Additive(int EasingID, int StartTime, int EndTime)
+            { Affectations.AddHFlip(new String[] { EasingID.ToString(), StartTime.ToString(), EndTime.ToString(), "A" }); }
     }
 }
