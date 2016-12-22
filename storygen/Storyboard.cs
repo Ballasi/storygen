@@ -36,14 +36,14 @@ namespace storygen
             int TryAt = 63072;
 
             Sprite circle = Foreground.CreateSprite("SB/dot.png", Centre);
-            circle.Move(62190, 65014, 20, 50, 300, 200);
+            circle.Move(62190, 65014, 20, 50, 300, 200.5);
             circle.Fade(62190, 1.0);
             //circle.Fade(TryAt, 0.0);
 
             Vector2 pos = circle.getPositionAt(TryAt);
 
             Sprite circle2 = Foreground.CreateSprite("SB/dot.png", Centre);
-            circle2.Move(TryAt, (int) pos.X, (int) pos.Y);
+            circle2.Move(TryAt, pos.X, pos.Y);
             circle2.Scale(ExpoOut, TryAt, TryAt + 1000, 1.0, 2.0);
             circle2.Fade(TryAt + 200, TryAt + 1200, 1.0, 0.0);
         }
