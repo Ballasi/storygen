@@ -1,4 +1,5 @@
-﻿using System;
+﻿using storygen.Elements;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,6 +27,13 @@ namespace storygen
             return sprite;
         }
 
+        public Animation CreateAnimation(String Path, Origin Origin, int FrameCount, int FrameDelay, LoopType LoopType)
+        {
+            Animation animation = new Animation(Path, Origin, FrameCount, FrameDelay, LoopType);
+            sprites.Add(animation);
+            return animation;
+        }
+
         public String getContent()
         {
             String Content = "";
@@ -34,7 +42,8 @@ namespace storygen
                 if (sprite.IsHidden())
                     continue;
 
-                Content += "Sprite," + layer + "," + sprite.getOrigin().getName() + ",\"" + sprite.getPath() + "\",320,240\n";
+                if (sprite is Animation) Content += "Animation," + layer + "," + sprite.getFirstLine() + "\n";
+                else if (sprite is Sprite) Content += "Sprite," + layer + "," + sprite.getFirstLine() + "\n";
                 Content += sprite.getAffections();
             }
 

@@ -1,4 +1,5 @@
-﻿using storygen.Other;
+﻿using storygen.Elements;
+using storygen.Other;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,6 +47,32 @@ namespace storygen
             circle2.Move(TryAt, pos.X, pos.Y);
             circle2.Scale(ExpoOut, TryAt, TryAt + 1000, 1.0, 2.0);
             circle2.Fade(TryAt + 200, TryAt + 1200, 1.0, 0.0);
+
+            int poss = 600;
+            for (int i = 1; i <= 5; i++)
+            {
+                int FC = 10;
+                if (i == 4) FC = 6;
+
+                int Delay = (int) Math.Pow(10, i);
+                if (i == 5) Delay = 60000;
+
+                Animation an = Foreground.CreateAnimation("SB/num/n.png", Centre, FC, Delay, LoopForever);
+                an.Move(0, poss, 400);
+                an.Scale(0, 0.625);
+                an.Fade(201487, 1.0);
+
+                if (i == 2 || i == 4)
+                {
+                    Sprite s = Foreground.CreateSprite("SB/num/d.png", Centre);
+                    s.Move(0, poss - 50, 400);
+                    s.Scale(0, 0.625);
+                    s.Fade(201487, 1.0);
+
+                    poss -= 100;
+                }
+                else poss -= 60;
+            }
         }
     }
 }

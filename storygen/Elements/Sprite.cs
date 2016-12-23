@@ -15,6 +15,10 @@ namespace storygen
         Affectations Affectations;
         bool Hidden;
 
+        public Sprite()
+        {
+        }
+
         public Sprite(String Path, Origin Origin)
         {
             this.Path = Path;
@@ -24,40 +28,22 @@ namespace storygen
             Affectations = new Affectations();
         }
 
-        public String getPath()
-        {
-            return Path;
-        }
-
-        public Origin getOrigin()
-        {
-            return Origin;
-        }
-
-        public String getAffections()
-        {
-            return Affectations.Output();
-        }
+        public String getPath() => Path;
+        public Origin getOrigin() => Origin;
+        public String getAffections() => Affectations.Output();
+        public virtual String getFirstLine() => getOrigin().getName() + ",\"" + getPath() + "\",320,240";
 
         public void BeginLoop(int Time, int Count)
-        {
-            Affectations.StartLoop(new String[] { Time.ToString(), Count.ToString() });
-        }
+            => Affectations.StartLoop(new String[] { Time.ToString(), Count.ToString() });
 
         public void EndLoop()
-        {
-            Affectations.EndLoop();
-        }
+            => Affectations.EndLoop();
 
         public void OnTrigger(int StartTime, int EndTime, String TriggerType)
-        {
-            Affectations.StartTrigger(new String[] { TriggerType, StartTime.ToString(), EndTime.ToString() });
-        }
+            => Affectations.StartTrigger(new String[] { TriggerType, StartTime.ToString(), EndTime.ToString() });
 
         public void EndTrigger()
-        {
-            Affectations.EndTrigger();
-        }
+            => Affectations.EndTrigger();
 
         public Vector2 getPositionAt(int Time)
         {

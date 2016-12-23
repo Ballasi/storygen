@@ -44,6 +44,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Elements\Affectations.cs" />
+    <Compile Include="Elements\Animation.cs" />
+    <Compile Include="Other\Color.cs" />
     <Compile Include="Other\Vector2.cs" />
     <Compile Include="Storyboard\Easing.cs" />
     <Compile Include="MainClass.cs" />

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using storygen.Elements;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,6 +18,8 @@ namespace storygen
                       QuartOut, QuartInOut, QuintIn, QuintOut, QuintInOut, SineIn, SineOut, SineInOut, ExpoIn, ExpoOut,
                       ExpoInOut, CircIn, CircOut, CircInOut, ElasticIn, ElasticOut, ElasticHalfOut, ElasticQuarterOut, ElasticInOut, BackIn,
                       BackOut, BackInOut, BounceIn, BounceOut, BounceInOut;
+
+        public LoopType LoopForever, LoopOnce;
 
         public Random rnd;
 
@@ -48,6 +51,10 @@ namespace storygen
             ElasticIn = new Easing("ElasticIn"); ElasticOut = new Easing("ElasticOut"); ElasticHalfOut = new Easing("ElasticHalfOut"); ElasticQuarterOut = new Easing("ElasticQuarterOut"); ElasticInOut = new Easing("ElasticInOut");
             BackIn = new Easing("BackIn"); BackOut = new Easing("BackOut"); BackInOut = new Easing("BackInOut");
             BounceIn = new Easing("BounceIn"); BounceOut = new Easing("BounceOut"); BounceInOut = new Easing("BounceInOut");
+
+            // Setting up LoopTypes
+            LoopForever = new LoopType("LoopForever");
+            LoopOnce = new LoopType("LoopOnce");
         }
 
         public int Random(int Minimum, int Maximum)
