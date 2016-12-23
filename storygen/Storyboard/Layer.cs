@@ -31,6 +31,9 @@ namespace storygen
             String Content = "";
             foreach (Sprite sprite in sprites)
             {
+                if (sprite.IsHidden())
+                    continue;
+
                 Content += "Sprite," + layer + "," + sprite.getOrigin().getName() + ",\"" + sprite.getPath() + "\",320,240\n";
                 Content += sprite.getAffections();
             }

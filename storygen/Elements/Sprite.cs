@@ -13,11 +13,14 @@ namespace storygen
         String Path;
         Origin Origin;
         Affectations Affectations;
+        bool Hidden;
 
         public Sprite(String Path, Origin Origin)
         {
             this.Path = Path;
             this.Origin = Origin;
+            Hidden = false;
+
             Affectations = new Affectations();
         }
 
@@ -232,6 +235,12 @@ namespace storygen
             double Output = StartValue + (EndValue - StartValue) * Progress;
             return Output;
         }
+
+        public void Hide()
+            => Hidden = true;
+
+        public bool IsHidden()
+            => Hidden;
 
             // Linear Events
         public void Move(int Time, double X, double Y)
