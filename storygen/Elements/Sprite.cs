@@ -249,7 +249,7 @@ namespace storygen
             => Move(0, StartTime, EndTime, StartX, StartY, EndX, EndY);
 
         public void Move(int Time, Vector2 Position)
-            => Affectations.AddMovement(new String[] { "0", Time.ToString(), "", Position.X.ToString(), Position.Y.ToString() });
+            => Move(Time, Position.X, Position.Y);
         public void Move(int StartTime, int EndTime, Vector2 StartPosition, Vector2 EndPosition)
             => Move(0, StartTime, EndTime, StartPosition, EndPosition);
 
@@ -288,6 +288,11 @@ namespace storygen
         public void Color(int StartTime, int EndTime, double StartR, double StartG, double StartB, double EndR, double EndG, double EndB)
             => Color(0, StartTime, EndTime, StartR, StartG, StartB, EndR, EndG, EndB);
 
+        public void Color(int Time, Color Color)
+            => this.Color(Time, Color.R, Color.G, Color.B);
+        public void Color(int StartTime, int EndTime, Color StartColor, Color EndColor)
+            => this.Color(StartTime, EndTime, StartColor.R, StartColor.G, StartColor.B, EndColor.R, EndColor.G, EndColor.B);
+
         public void HFlip(int StartTime, int EndTime)
             => HFlip(0, StartTime, EndTime);
         public void VFlip(int StartTime, int EndTime)
@@ -323,6 +328,9 @@ namespace storygen
         public void Color(Easing Easing, int StartTime, int EndTime, double StartR, double StartG, double StartB, double EndR, double EndG, double EndB)
             => Color(Easing.getID(), StartTime, EndTime, StartR, StartG, StartB, EndR, EndG, EndB);
 
+        public void Color(Easing Easing, int StartTime, int EndTime, Color StartColor, Color EndColor)
+            => Color(Easing.getID(), StartTime, EndTime, StartColor, EndColor);
+
         public void HFlip(Easing Easing, int StartTime, int EndTime)
             => HFlip(Easing.getID(), StartTime, EndTime);
         public void VFlip(Easing Easing, int StartTime, int EndTime)
@@ -333,9 +341,9 @@ namespace storygen
         // Events by Easing IDs
         public void Move(int EasingID, int StartTime, int EndTime, double StartX, double StartY, double EndX, double EndY)
             => Affectations.AddMovement(new String[] { EasingID.ToString(), StartTime.ToString(), EndTime.ToString(), StartX.ToString(), StartY.ToString(), EndX.ToString(), EndY.ToString() });
-        
+
         public void Move(int EasingID, int StartTime, int EndTime, Vector2 StartPosition, Vector2 EndPosition)
-            => Affectations.AddMovement(new String[] { EasingID.ToString(), StartTime.ToString(), EndTime.ToString(), StartPosition.X.ToString(), StartPosition.Y.ToString(), EndPosition.X.ToString(), EndPosition.Y.ToString() });
+            => Move(EasingID, StartTime, EndTime, StartPosition.X, StartPosition.Y, EndPosition.X, EndPosition.Y);
         
         public void MoveX(int EasingID, int StartTime, int EndTime, double StartX, double EndX)
             => Affectations.AddMovementX(new String[] { EasingID.ToString(), StartTime.ToString(), EndTime.ToString(), StartX.ToString(), EndX.ToString() });
@@ -357,6 +365,9 @@ namespace storygen
         
         public void Color(int EasingID, int StartTime, int EndTime, double StartR, double StartG, double StartB, double EndR, double EndG, double EndB)
             => Affectations.AddColor(new String[] { EasingID.ToString(), StartTime.ToString(), EndTime.ToString(), ((int)(StartR * 255)).ToString(), ((int)(StartG * 255)).ToString(), ((int)(StartB * 255)).ToString(), ((int)(EndR * 255)).ToString(), ((int)(EndG * 255)).ToString(), ((int)(EndB * 255)).ToString() });
+
+        public void Color(int EasingID, int StartTime, int EndTime, Color StartColor, Color EndColor)
+            => this.Color(EasingID, StartTime, EndTime, StartColor.R, StartColor.G, StartColor.B, EndColor.R, EndColor.G, EndColor.B);
 
         public void HFlip(int EasingID, int StartTime, int EndTime)
             => Affectations.AddHFlip(new String[] { EasingID.ToString(), StartTime.ToString(), EndTime.ToString(), "H" });
