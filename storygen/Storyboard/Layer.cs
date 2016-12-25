@@ -19,7 +19,7 @@ namespace storygen
             else                layer = "Foreground";
         }
 
-        public Sprite createSprite(String Path, Origin Origin)
+        public Sprite CreateSprite(String Path, Origin Origin)
         {
             Sprite sprite = new Sprite(Path, Origin);
             sprites.Add(sprite);
@@ -28,16 +28,14 @@ namespace storygen
 
         public String getContent()
         {
-            if (sprites.Count == 0) return null;
-
-            String content = "";
+            String Content = "";
             foreach (Sprite sprite in sprites)
             {
-                content += "Sprite," + layer + "," + sprite.getOrigin().getName() + ",\"" + sprite.getPath() + "\",320,240";
-                content += sprite.getAffections();
+                Content += "Sprite," + layer + "," + sprite.getOrigin().getName() + ",\"" + sprite.getPath() + "\",320,240\n";
+                Content += sprite.getAffections();
             }
 
-            return content;
+            return Content;
         }
     }
 }

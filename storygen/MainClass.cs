@@ -12,7 +12,7 @@ namespace storygen
         {
             Storyboard storyboard = new Storyboard();
             
-            storyboard.render();
+            storyboard.export("D:/Logiciels x32/osu!/Songs/audio/Seven Lions - The Journey (Zerss)");
         }
     }
 }
