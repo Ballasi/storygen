@@ -10,8 +10,9 @@ namespace storygen
     {
         static void Main(string[] args)
         {
-            Storyboard storyboard = new Storyboard();
-            storyboard.export("D:/Logiciels x32/osu!/Songs/audio/Seven Lions - The Journey (Zerss)");
+            Storyboard storyboard = new Storyboard(@"D:\Logiciels x32\osu!\Songs\340048 Memme - Avalanche\");
+            
+            storyboard.export();
         }
     }
 }

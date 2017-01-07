@@ -10,9 +10,9 @@ namespace storygen
 {
     class Storyboard : Osb
     {
-        public Storyboard()
+        public Storyboard(String FolderPath) : base(FolderPath)
         {
-            Sprite bg = Background.CreateSprite("bg.jpg", Centre);
+            /*Sprite bg = Background.CreateSprite("bg.jpg", Centre);
             bg.Fade(0, 0.5);
             bg.Scale(62190, 0.625);
 
@@ -72,7 +72,7 @@ namespace storygen
                     poss -= 100;
                 }
                 else poss -= 60;
-            }
+            }*/
         }
     }
 }

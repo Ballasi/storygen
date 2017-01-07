@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace storygen
@@ -23,7 +24,15 @@ namespace storygen
 
         public Random rnd;
 
+        public String FolderPath = "";
+
+        public Mapset Mapset;
+
         public Osb()
+        {
+        }
+
+        public Osb(String FolderPath)
         {
             Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.InvariantCulture;
             rnd = new Random();
@@ -55,6 +64,37 @@ namespace storygen
             // Setting up LoopTypes
             LoopForever = new LoopType("LoopForever");
             LoopOnce = new LoopType("LoopOnce");
+
+            // Setting up FolderPath
+            setFolderPath(FolderPath);
+
+            // Setting up Mapset
+            Mapset = new Mapset(FolderPath, getAllOsuFiles());
+        }
+
+        public void setFolderPath(String FolderPath)
+        {
+            String Path;
+            if (FolderPath.Substring(FolderPath.Length - 1) == @"\") Path = FolderPath;
+            else Path = FolderPath + @"\";
+            this.FolderPath = Path;
+        }
+
+        public String[] getAllOsuFiles()
+        {
+            if (FolderPath == "") return null;
+
+            String[] rawFiles = Directory.GetFiles(FolderPath, "*.osu");
+            String[] osuFiles = new String[rawFiles.Length];
+
+            int count = 0;
+            foreach (String file in rawFiles)
+            {
+                osuFiles[count] = file.Substring(FolderPath.Length);
+                count++;
+            }
+
+            return osuFiles;
         }
 
         public int Random(int Minimum, int Maximum)
@@ -67,8 +107,11 @@ namespace storygen
             return rnd.NextDouble() * (Maximum - Minimum) + Minimum;
         }
 
-        public void export(String FilePath)
+        public void export()
         {
+            String FilePath = FolderPath + Mapset.getArtistName() + " - " + Mapset.getTitle() + " (" + Mapset.getCreator() + ").osb";
+            Console.WriteLine(FilePath);
+
                 // MAKING UP CONTENT
             String Content = "";
 
@@ -88,13 +131,7 @@ namespace storygen
 
             Content += "//Storyboard Sound Samples\n";
 
-                // CHECKING PATH
-            String Path = FilePath;
-            if (Path.Length > 4 && Path.Substring(Path.Length - 1) != "/") Path += ".osb";
-            else if (Path.Length < 4 && Path.Substring(Path.Length - 1) != "/") Path += "/";
-            if (Path.Length < 4 || Path.Substring(Path.Length - 4) != ".osb") Path += "storyboard.osb";
-
-            System.IO.File.WriteAllText(Path, Content);
+            System.IO.File.WriteAllText(FilePath, Content);
         }
     }
 }
