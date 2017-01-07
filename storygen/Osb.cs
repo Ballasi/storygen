@@ -110,7 +110,6 @@ namespace storygen
         public void export()
         {
             String FilePath = FolderPath + Mapset.getArtistName() + " - " + Mapset.getTitle() + " (" + Mapset.getCreator() + ").osb";
-            Console.WriteLine(FilePath);
 
                 // MAKING UP CONTENT
             String Content = "";

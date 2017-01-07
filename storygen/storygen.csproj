@@ -47,6 +47,7 @@
     <Compile Include="Elements\Animation.cs" />
     <Compile Include="Mapset\Beatmap.cs" />
     <Compile Include="Mapset\Mapset.cs" />
+    <Compile Include="Mapset\ControlPoint.cs" />
     <Compile Include="Other\Color.cs" />
     <Compile Include="Other\Vector2.cs" />
     <Compile Include="Storyboard\Easing.cs" />

@@ -12,6 +12,7 @@ namespace storygen
         String[] Content;
         String DifficultyName;
         double SliderVelocity;
+        ControlPoint[] ControlPoints;
 
         public Beatmap(String FolderPath, String FileName)
         {
@@ -22,6 +23,43 @@ namespace storygen
 
             DifficultyName = getProperty("Version");
             SliderVelocity = Double.Parse(getProperty("SliderMultiplier"));
+            ControlPoints = parseControlPoints();
+        }
+
+        public ControlPoint[] parseControlPoints()
+        {
+            String[] Points = getContent("TimingPoints");
+            List<ControlPoint> ParsedPoints = new List<ControlPoint>();
+            foreach (String Point in Points)
+            {
+                String[] Parameters = Point.Split(',');
+                ParsedPoints.Add(
+                    new ControlPoint(Int32.Parse(Parameters[6]) == 1 ? ControlPointTypes.Timing : ControlPointTypes.Inherited, Int32.Parse(Parameters[0]), Double.Parse(Parameters[1]))
+                );
+            }
+            return ParsedPoints.ToArray();
+        }
+
+        public String[] getContent(String Part)
+        {
+            bool IsInPart = false;
+            List<String> PartContent = new List<String>();
+            int count = 0;
+            foreach (String Line in Content)
+            {
+                if (IsInPart == false)
+                {
+                    if (Line == "[" + Part + "]") IsInPart = true;
+                }
+                else
+                {
+                    if (Line == "") return PartContent.ToArray();
+
+                    PartContent.Add(Line);
+                    count++;
+                }
+            }
+            return null;
         }
 
         public String getProperty(String Property)
