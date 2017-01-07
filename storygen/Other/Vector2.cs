@@ -21,14 +21,10 @@ namespace storygen.Other
             this.Y = Y;
         }
 
-        public double Distance(Vector2 Vec1, Vector2 Vec2)
-        {
-            return Math.Sqrt(Math.Pow(Vec2.X - Vec1.Y, 2) + Math.Pow(Vec2.Y - Vec1.Y, 2));
-        }
+        public static double Distance(Vector2 Vec1, Vector2 Vec2)
+            => Math.Abs(Math.Sqrt(Math.Pow(Vec2.X - Vec1.X, 2) + Math.Pow(Vec2.Y - Vec1.Y, 2)));
 
-        public double Angle(Vector2 Vec1, Vector2 Vec2)
-        {
-            return Math.Atan2(Vec1.Y - Vec2.Y, Vec2.X - Vec1.X) + Math.PI / 2;
-        }
+        public static double Angle(Vector2 Vec1, Vector2 Vec2)
+            => Math.Atan2(Vec2.Y - Vec1.Y, Vec2.X - Vec1.X);
     }
 }
