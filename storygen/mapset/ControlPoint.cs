@@ -22,6 +22,7 @@ namespace storygen
         public ControlPointTypes getType() => Type;
         public int getOffset() => Offset;
         public double getMillisecPerBeat() => MillisecPerBeat;
+        public double getSVMuliplier() => Type == ControlPointTypes.Timing ? 1.0 : Math.Round(-100 / MillisecPerBeat, 2);
     }
 
     public enum ControlPointTypes

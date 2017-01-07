@@ -12,7 +12,7 @@ namespace storygen
     {
         public Storyboard(String FolderPath) : base(FolderPath)
         {
-            /*Sprite bg = Background.CreateSprite("bg.jpg", Centre);
+            Sprite bg = Background.CreateSprite("bg.jpg", Centre);
             bg.Fade(0, 0.5);
             bg.Scale(62190, 0.625);
 
@@ -33,20 +33,6 @@ namespace storygen
                 sm.Fade(Out, 75, 705, 0.4, 0.0);
                 sm.Scale(Out, 75, 705, 0.64, 0.625);
             sm.EndLoop();
-            
-            int TryAt = 63130;
-
-            Sprite circle = Foreground.CreateSprite("SB/dot.png", Centre);
-            circle.Move(BounceIn, 62190, 65014, 20, 50, 300, 200.5);
-            circle.Fade(62190, 1.0);
-            circle.Fade(TryAt, 0.0);
-
-            Vector2 pos = circle.getPositionAt(TryAt);
-
-            Sprite circle2 = Foreground.CreateSprite("SB/dot.png", Centre);
-            circle2.Move(TryAt, pos.X, pos.Y);
-            circle2.Scale(ExpoOut, TryAt, TryAt + 1000, 1.0, 2.0);
-            circle2.Fade(TryAt + 200, TryAt + 1200, 1.0, 0.0);
 
             int poss = 600;
             for (int i = 1; i <= 5; i++)
@@ -72,7 +58,23 @@ namespace storygen
                     poss -= 100;
                 }
                 else poss -= 60;
-            }*/
+            }
+
+            foreach (Beatmap Map in Mapset.getBeatmaps())
+            {
+                    foreach (HitObject obj in Map.HitObjects)
+                    {
+                        if (obj is Circle || obj is Spinner)
+                        {
+                            Sprite highlight = Foreground.CreateSprite("SB/highlight.png", Centre);
+                            highlight.Scale(CubicOut, obj.getTime() - 100, obj.getTime() + 300, 0.2, 0.6);
+                            highlight.Move(obj.getTime(), obj.getPosition());
+                            highlight.Fade(Out, obj.getTime() - 100, obj.getTime() + 300, 0.0, 1.0);
+                            highlight.Fade(CubicIn, obj.getTime() + 300, obj.getTime() + 2000, 1.0, 0.0);
+                        } 
+                    }
+                
+            }
         }
     }
 }

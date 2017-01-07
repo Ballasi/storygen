@@ -46,6 +46,10 @@
     <Compile Include="Elements\Affectations.cs" />
     <Compile Include="Elements\Animation.cs" />
     <Compile Include="Mapset\Beatmap.cs" />
+    <Compile Include="Mapset\HitObject.cs" />
+    <Compile Include="Mapset\HitObjectTypes\Circle.cs" />
+    <Compile Include="Mapset\HitObjectTypes\Slider.cs" />
+    <Compile Include="Mapset\HitObjectTypes\Spinner.cs" />
     <Compile Include="Mapset\Mapset.cs" />
     <Compile Include="Mapset\ControlPoint.cs" />
     <Compile Include="Other\Color.cs" />
