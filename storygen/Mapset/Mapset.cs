@@ -30,5 +30,6 @@ namespace storygen
         public String getArtistName() => ArtistName;
         public String getTitle() => Title;
         public String getCreator() => Creator;
+        public double getBPMAt(double Time) => Beatmaps[0].getBPMAt(Time);
     }
 }

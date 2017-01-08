@@ -1,5 +1,4 @@
-﻿using storygen.Mapset.HitObjectTypes;
-using storygen.Other;
+﻿using storygen.Other;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +13,7 @@ namespace storygen
         String[] Content;
         String DifficultyName;
         double SliderVelocity;
-        ControlPoint[] ControlPoints;
+        public static ControlPoint[] ControlPoints;
         public HitObject[] HitObjects;
 
         public Beatmap(String FolderPath, String FileName)
@@ -61,17 +60,25 @@ namespace storygen
             foreach (String RawObject in RawObjects)
             {
                 String[] Parameters = RawObject.Split(',');
+
+                HitObject Object = new HitObject();
                 HitObjectType Type = (HitObjectType) Int32.Parse(Parameters[3]);
                 Vector2 Vector = new Vector2(Int32.Parse(Parameters[0]) + 64, Int32.Parse(Parameters[1]) + 56);
 
-                HitObject Object = new HitObject();
-
                 if (Type.HasFlag(HitObjectType.Circle))
-                    Object = new Circle(Type, Vector, Int32.Parse(Parameters[2]), new String[0]);
+                    Object = new Circle(Type, Vector, Int32.Parse(Parameters[2]));
                 else if (Type.HasFlag(HitObjectType.Slider))
-                    Object = new Slider(Type, Vector, Int32.Parse(Parameters[2]), new String[0]);
+                {
+                    List<String> SliderParameters = new List<String>();
+                    for (int i = 5; i < Parameters.Length; i++)
+                    {
+                        SliderParameters.Add(Parameters[i]);
+                    }
+                    int Time = Int32.Parse(Parameters[2]);
+                    Object = new Slider(Type, Vector, Time, new double[] { getBPMAt(Time), getSliderVelocityAt(Time) }, SliderParameters.ToArray());
+                }
                 else
-                    Object = new Spinner(Type, Vector, Int32.Parse(Parameters[2]), new String[0]);
+                    Object = new Spinner(Type, Vector, Int32.Parse(Parameters[2]), Int32.Parse(Parameters[5]));
 
                 ParsedObjects.Add(Object);
             }
@@ -82,12 +89,13 @@ namespace storygen
         {
             String[] RawPoints = getContent("TimingPoints");
             List<ControlPoint> ParsedPoints = new List<ControlPoint>();
-            foreach (String Point in RawPoints)
+            double LastBPM = 50.0;
+            foreach (String RawPoint in RawPoints)
             {
-                String[] Parameters = Point.Split(',');
-                ParsedPoints.Add(
-                    new ControlPoint(Int32.Parse(Parameters[6]) == 1 ? ControlPointTypes.Timing : ControlPointTypes.Inherited, Int32.Parse(Parameters[0]), Double.Parse(Parameters[1]))
-                );
+                String[] Parameters = RawPoint.Split(',');
+                ControlPoint Point = new ControlPoint(Int32.Parse(Parameters[6]) == 1 ? ControlPointTypes.Timing : ControlPointTypes.Inherited, Int32.Parse(Parameters[0]), Double.Parse(Parameters[1]), LastBPM);
+                ParsedPoints.Add(Point);
+                if (Point.getType() == ControlPointTypes.Timing) LastBPM = Point.getBPM();
             }
             return ParsedPoints.ToArray();
         }
@@ -109,6 +117,30 @@ namespace storygen
             }
 
             return null;
+        }
+
+        public double getBPMAt(double Time)
+        {
+            double BPM = 50.0;
+
+            foreach (ControlPoint Point in ControlPoints)
+            {
+                if (Point.getType() == ControlPointTypes.Timing && Point.getOffset() < Time)
+                    BPM = Point.getBPM();
+            }
+            return 170;
+        }
+
+        public double getSliderVelocityAt(double Time)
+        {
+            double Multiplier = 1.0;
+
+            foreach (ControlPoint Point in ControlPoints)
+            {
+                if (Point.getType() == ControlPointTypes.Timing && Point.getOffset() < Time)
+                    Multiplier = Point.getSVMuliplier();
+            }
+            return SliderVelocity * Multiplier;
         }
     }
 }

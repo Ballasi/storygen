@@ -124,7 +124,7 @@ namespace storygen
         private String getEquivalentLine(String Type, String[] Parameters)
         {
             String Line = " ";
-            if (InLoop) Line += " ";
+            if (InLoop || InTrigger) Line += " ";
             Line += Type;
             
             foreach (String Parameter in Parameters)

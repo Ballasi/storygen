@@ -9,8 +9,12 @@ namespace storygen
 {
     class Spinner : HitObject
     {
-        public Spinner(HitObjectType Type, Vector2 Position, double Time, String[] Parameters) : base(Type, Position, Time, Parameters)
+        public double endTime;
+        public override double EndTime => endTime;
+
+        public Spinner(HitObjectType Type, Vector2 Position, double StartTime, double EndTime) : base(Type, Position, StartTime)
         {
+            endTime = EndTime;
         }
     }
 }

@@ -11,24 +11,23 @@ namespace storygen
     {
         HitObjectType Type;
         Vector2 Position;
-        double Time;
-        String[] Parameters;
+        public double StartTime;
+        public virtual double EndTime => StartTime;
 
         public HitObject()
         {
         }
 
-        public HitObject(HitObjectType Type, Vector2 Position, double Time, String[] Parameters)
+        public HitObject(HitObjectType Type, Vector2 Position, double Time)
         {
             this.Type = Type;
             this.Position = Position;
-            this.Time = Time;
-            this.Parameters = Parameters;
+            StartTime = Time;
         }
 
         public HitObjectType getType() => Type.HasFlag(HitObjectType.Circle) ? HitObjectType.Circle : (Type.HasFlag(HitObjectType.Slider) ? HitObjectType.Slider : HitObjectType.Spinner);
-        public double getTime() => Time;
-        public Vector2 getPosition() => Position;
+        public virtual Vector2 PositionAt(double Time) => getInitialPosition();
+        public Vector2 getInitialPosition() => Position;
     }
 
     [Flags]

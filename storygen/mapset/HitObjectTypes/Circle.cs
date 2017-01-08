@@ -9,7 +9,7 @@ namespace storygen
 {
     class Circle : HitObject
     {
-        public Circle(HitObjectType Type, Vector2 Position, double Time, String[] Parameters) : base(Type, Position, Time, Parameters)
+        public Circle(HitObjectType Type, Vector2 Position, double Time) : base(Type, Position, Time)
         {
         }
     }
