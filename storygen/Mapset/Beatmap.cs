@@ -13,8 +13,9 @@ namespace storygen
         String[] Content;
         String DifficultyName;
         double SliderVelocity;
-        public static ControlPoint[] ControlPoints;
+        public ControlPoint[] ControlPoints;
         public HitObject[] HitObjects;
+        public Layer Background, Fail, Pass, Foreground;
 
         public Beatmap(String FolderPath, String FileName)
         {
@@ -23,6 +24,11 @@ namespace storygen
 
             Content = System.IO.File.ReadAllLines(FolderPath + FileName);
 
+            Background = new Layer(0);
+            Fail = new Layer(1);
+            Pass = new Layer(2);
+            Foreground = new Layer(3);
+
             DifficultyName = getProperty("Version");
             SliderVelocity = Double.Parse(getProperty("SliderMultiplier"));
             ControlPoints = parseControlPoints();
@@ -30,6 +36,53 @@ namespace storygen
         }
 
         public String getDifficultyName() => DifficultyName;
+
+        public void Export()
+        {
+            String ExportContent = "";
+            String FilePath = FolderPath + getProperty("Artist") + " - " + getProperty("Title") + " (" + getProperty("Creator") + ") [" + DifficultyName + "].osu";
+
+            bool SBPart = false;
+            for (int i = 0; i < Content.Length; i++)
+            {
+                String Line = Content[i];
+
+                if (Line == "//Storyboard Layer 0 (Background)")
+                    SBPart = true;
+                else if (!SBPart)
+                    ExportContent += Line + "\n";
+
+                if (Line == "" && SBPart)
+                {
+                    SBPart = false;
+                    ExportContent += getStoryboardContent();
+                    ExportContent += "\n";
+                }
+            }
+
+            System.IO.File.WriteAllText(FilePath, ExportContent.ToString());
+        }
+
+        private String getStoryboardContent()
+        {
+            String StoryboardContent = "";
+
+            StoryboardContent += "//Storyboard Layer 0 (Background)\n";
+            if (Background.getContent() != null) StoryboardContent += Background.getContent();
+
+            StoryboardContent += "//Storyboard Layer 1 (Fail)\n";
+            if (Fail.getContent() != null) StoryboardContent += Fail.getContent();
+
+            StoryboardContent += "//Storyboard Layer 2 (Pass)\n";
+            if (Pass.getContent() != null) StoryboardContent += Pass.getContent();
+
+            StoryboardContent += "//Storyboard Layer 3 (Foreground)\n";
+            if (Foreground.getContent() != null) StoryboardContent += Foreground.getContent();
+
+            StoryboardContent += "//Storyboard Sound Samples\n";
+
+            return StoryboardContent;
+        }
 
         public String[] getContent(String Part)
         {

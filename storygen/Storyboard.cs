@@ -62,26 +62,18 @@ namespace storygen
 
             foreach (Beatmap Map in Mapset.getBeatmaps())
             {
-                if (Map.getDifficultyName() == "Glacial Cascade")
+                if (Map.getDifficultyName() != "Glacial Cascade")
                 {
                     foreach (HitObject HitObject in Map.HitObjects)
                     {
-                        /*if (HitObject is Circle)
+                        if (!(HitObject is Spinner))
                         {
-                            Sprite highlight = Foreground.CreateSprite("old/highlight.png", Centre);
+                            Sprite highlight = Map.Foreground.CreateSprite("SB/highlight.png", Centre);
                             highlight.Scale(CubicOut, HitObject.StartTime - 100, HitObject.StartTime + 100, 0.2, 0.8);
                             highlight.Move(HitObject.StartTime, HitObject.getInitialPosition());
                             highlight.Fade(Out, HitObject.StartTime - 100, HitObject.StartTime + 100, 0.0, 1.0);
                             highlight.Fade(CubicIn, HitObject.StartTime + 300, HitObject.StartTime + 2000, 1.0, 0.0);
                             highlight.Additive(HitObject.StartTime - 100, HitObject.StartTime + 2000);
-                        }
-                        else */if (HitObject is Slider)
-                        {
-                            Sprite highlight = Foreground.CreateSprite("old/highlight.png", Centre);
-                            for (int i = (int) HitObject.StartTime; i < HitObject.StartTime + 500; i += 50)
-                            {
-                                highlight.Move(i, i + 50, HitObject.PositionAt(i), HitObject.PositionAt(i + 50));
-                            }
                         }
                     }
                 }

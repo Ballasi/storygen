@@ -108,7 +108,7 @@ namespace storygen
             return rnd.NextDouble() * (Maximum - Minimum) + Minimum;
         }
 
-        public void export()
+        public void Export()
         {
             String FilePath = FolderPath + Mapset.getArtistName() + " - " + Mapset.getTitle() + " (" + Mapset.getCreator() + ").osb";
 
@@ -132,6 +132,9 @@ namespace storygen
             Content += "//Storyboard Sound Samples\n";
 
             System.IO.File.WriteAllText(FilePath, Content);
+
+            foreach (Beatmap Beatmap in Mapset.getBeatmaps())
+                Beatmap.Export();
         }
     }
 }
