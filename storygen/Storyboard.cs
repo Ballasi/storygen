@@ -12,7 +12,7 @@ namespace storygen
     {
         public Storyboard(String FolderPath) : base(FolderPath)
         {
-            /*Sprite bg = Background.CreateSprite("bg.jpg", Centre);
+            Sprite bg = Background.CreateSprite("bg.jpg", Centre);
             bg.Fade(0, 0.5);
             bg.Scale(62190, 0.625);
 
@@ -33,6 +33,17 @@ namespace storygen
                 sm.Fade(Out, 75, 705, 0.4, 0.0);
                 sm.Scale(Out, 75, 705, 0.64, 0.625);
             sm.EndLoop();
+
+            int TryAt = 86542;
+            Sprite Circle1 = Foreground.CreateSprite("SB/dot.png", Centre);
+            Circle1.Move(BounceInOut, 84763, 87586, 180, 300, 380, 150);
+            Circle1.Fade(84763, 1.0);
+            Circle1.Fade(TryAt, 0.0);
+
+            Sprite Circle2 = Foreground.CreateSprite("SB/dot.png", Centre);
+            Circle2.Move(TryAt, Circle1.getPositionAt(TryAt));
+            Circle2.Scale(Out, TryAt, TryAt + 1000, 1.0, 2.0);
+            Circle2.Fade(In, TryAt, TryAt + 1000, 1.0, 0.0);
 
             int poss = 600;
             for (int i = 1; i <= 5; i++)
@@ -58,7 +69,7 @@ namespace storygen
                     poss -= 100;
                 }
                 else poss -= 60;
-            }*/
+            }
 
             foreach (Beatmap Map in Mapset.getBeatmaps())
             {

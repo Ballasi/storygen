@@ -51,12 +51,12 @@ namespace storygen
             int InitialValue = 360;
             double PositionX = InitialValue;
 
-            if (Affectations.MovementsX != null)
+            if (Affectations.MovementsX.Count != 0)
             {
                 Output = Check(Time, InitialValue, Affectations.MovementsX, new int[] { 0, 1, 2, 3, 4 });
                 PositionX = Output[0];
             }
-            else if(Affectations.Movements != null)
+            else if(Affectations.Movements.Count != 0)
             {
                 Output = Check(Time, InitialValue, Affectations.Movements, new int[] { 0, 1, 2, 3, 5 });
                 PositionX = Output[0];
@@ -65,12 +65,12 @@ namespace storygen
             InitialValue = 240;
             double PositionY = InitialValue;
 
-            if (Affectations.MovementsY != null)
+            if (Affectations.MovementsY.Count != 0)
             {
                 Output = Check(Time, InitialValue, Affectations.MovementsY, new int[] { 0, 1, 2, 3, 4 });
                 PositionY = Output[0];
             }
-            else if (Affectations.Movements != null)
+            else if (Affectations.Movements.Count != 0)
             {
                 Output = Check(Time, InitialValue, Affectations.Movements, new int[] { 0, 1, 2, 4, 6 });
                 PositionY = Output[0];
@@ -109,12 +109,12 @@ namespace storygen
             int InitialValue = 360;
             double Position = InitialValue;
 
-            if (Affectations.Scales != null && Affectations.VecScales == null)
+            if (Affectations.Scales.Count != 0 && Affectations.VecScales.Count == 0)
             {
                 Output = Check(Time, InitialValue, Affectations.Movements, new int[] { 0, 1, 2, 3, 4 });
                 Position = Output[0];
             }
-            else if (Affectations.VecScales != null)
+            else if (Affectations.VecScales.Count != 0)
             {
                 Output = Check(Time, InitialValue, Affectations.VecScales, new int[] { 0, 1, 2, 3, 5 });
                 Position = Output[0];
@@ -129,12 +129,12 @@ namespace storygen
             int InitialValue = 360;
             double Position = InitialValue;
 
-            if (Affectations.Scales != null && Affectations.VecScales == null)
+            if (Affectations.Scales.Count != 0 && Affectations.VecScales.Count == 0)
             {
                 Output = Check(Time, InitialValue, Affectations.Movements, new int[] { 0, 1, 2, 3, 4 });
                 Position = Output[0];
             }
-            else if (Affectations.VecScales != null)
+            else if (Affectations.VecScales.Count != 0)
             {
                 Output = Check(Time, InitialValue, Affectations.VecScales, new int[] { 0, 1, 2, 4, 6 });
                 Position = Output[0];
