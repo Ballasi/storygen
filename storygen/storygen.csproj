@@ -52,8 +52,8 @@
     <Compile Include="Mapset\HitObjectTypes\Spinner.cs" />
     <Compile Include="Mapset\Mapset.cs" />
     <Compile Include="Mapset\ControlPoint.cs" />
-    <Compile Include="Other\Color.cs" />
-    <Compile Include="Other\Vector2.cs" />
+    <Compile Include="Util\Color.cs" />
+    <Compile Include="Util\Vector2.cs" />
     <Compile Include="Storyboard\Easing.cs" />
     <Compile Include="MainClass.cs" />
     <Compile Include="Storyboard\Layer.cs" />
