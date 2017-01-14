@@ -9,6 +9,8 @@ namespace storygen.Util
 
         public Vector2()
         {
+            X = 0;
+            Y = 0;
         }
 
         public Vector2(double X, double Y)

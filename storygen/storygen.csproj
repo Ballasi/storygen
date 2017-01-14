@@ -53,6 +53,7 @@
     <Compile Include="Mapset\Mapset.cs" />
     <Compile Include="Mapset\ControlPoint.cs" />
     <Compile Include="Util\Color.cs" />
+    <Compile Include="Util\Mesh.cs" />
     <Compile Include="Util\Vector2.cs" />
     <Compile Include="Storyboard\Easing.cs" />
     <Compile Include="MainClass.cs" />
@@ -62,11 +63,14 @@
     <Compile Include="Elements\Sprite.cs" />
     <Compile Include="Storyboard.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Util\Vector3.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Example\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

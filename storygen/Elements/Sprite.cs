@@ -29,14 +29,14 @@ namespace storygen
         public String getAffections() => Affectations.Output();
         public virtual String getFirstLine() => getOrigin().getName() + ",\"" + getPath() + "\",320,240";
 
-        public void BeginLoop(int Time, int Count)
-            => Affectations.StartLoop(new String[] { Time.ToString(), Count.ToString() });
+        public void BeginLoop(double Time, double Count)
+            => Affectations.StartLoop(new String[] { ((int) Time).ToString(), ((int) Count).ToString() });
 
         public void EndLoop()
             => Affectations.EndLoop();
 
-        public void OnTrigger(int StartTime, int EndTime, String TriggerType)
-            => Affectations.StartTrigger(new String[] { TriggerType, StartTime.ToString(), EndTime.ToString() });
+        public void OnTrigger(double StartTime, double EndTime, String TriggerType)
+            => Affectations.StartTrigger(new String[] { TriggerType, ((int) StartTime).ToString(), ((int) EndTime).ToString() });
 
         public void EndTrigger()
             => Affectations.EndTrigger();

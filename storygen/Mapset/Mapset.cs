@@ -6,6 +6,7 @@ namespace storygen
     {
         String FolderPath, ArtistName, Title, Creator;
         Beatmap[] Beatmaps;
+        public double BeatDuration;
 
         public Mapset(String FolderPath, String[] FileNames)
         {
@@ -20,12 +21,15 @@ namespace storygen
             ArtistName = Beatmaps[0].getProperty("Artist");
             Title = Beatmaps[0].getProperty("Title");
             Creator = Beatmaps[0].getProperty("Creator");
+
+            BeatDuration = 60000 / getBPM();
         }
 
         public Beatmap[] getBeatmaps() => Beatmaps;
         public String getArtistName() => ArtistName;
         public String getTitle() => Title;
         public String getCreator() => Creator;
+        public double getBPM() => getBPMAt(Beatmaps[0].ControlPoints[0].getOffset());
         public double getBPMAt(double Time) => Beatmaps[0].getBPMAt(Time);
     }
 }

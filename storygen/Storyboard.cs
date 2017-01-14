@@ -85,6 +85,9 @@ namespace storygen
                     }
                 }
             }
+
+            using (Mesh Violin = new Mesh(@"F:\violin.obj", 320, 265, Centre, Foreground, 5))
+                Violin.Render(84763, 107351, Mapset.BeatDuration * 16, 0.35, 1/4.0, 0.05, true, "SB/dot.png", false);
         }
     }
 }
