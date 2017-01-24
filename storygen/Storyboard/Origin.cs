@@ -11,9 +11,6 @@ namespace storygen
             this.OriginName = OriginName;
         }
 
-        public String getName()
-        {
-            return OriginName;
-        }
+        public String getName() => OriginName;
     }
 }

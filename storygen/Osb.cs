@@ -32,6 +32,7 @@ namespace storygen
         public Osb(String FolderPath)
         {
             Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.InvariantCulture;
+
             rnd = new Random();
 
             // Setting up Layers
@@ -102,6 +103,166 @@ namespace storygen
         public double Random(double Minimum, double Maximum)
         {
             return rnd.NextDouble() * (Maximum - Minimum) + Minimum;
+        }
+
+        public void MergeWith(String FilePath)
+        {
+            String[] Content = System.IO.File.ReadAllLines(FilePath);
+            
+            Sprite CurrentSprite = null;
+            bool InGroup = false;
+
+            foreach (String Line in Content)
+            {
+                if (Line.StartsWith("//") || Line == "[Events]")
+                    continue;
+
+                if (InGroup && !Line.StartsWith("  "))
+                    InGroup = false;
+
+                String[] Values = Line.Trim().Split(',');
+                
+                switch (Values[0])
+                {
+                    case "Sprite":
+                        {
+                            Layer SpriteLayer = getEquivalentLayer(Values[1]);
+                            Origin SpriteOrigin = new Origin(Values[2]);
+                            String SpritePath = Values[3].Substring(1, Values[3].Length - 2);
+                            CurrentSprite = SpriteLayer.CreateSprite(SpritePath, SpriteOrigin);
+                        }
+                        break;
+                    case "Animation":
+                        {
+                            Layer SpriteLayer = getEquivalentLayer(Values[1]);
+                            Origin SpriteOrigin = new Origin(Values[2]);
+                            String SpritePath = Values[3].Substring(1, Values[3].Length - 2);
+                            int FrameCount = Int32.Parse(Values[6]);
+                            int FrameDelay = Int32.Parse(Values[7]);
+                            LoopType LoopType = new LoopType(Values[8]);
+                            CurrentSprite = SpriteLayer.CreateAnimation(SpritePath, SpriteOrigin, FrameCount, FrameDelay, LoopType);
+                        }
+                        break;
+                    case "T":
+                        {
+                            String TriggerType = Values[1];
+                            int StartTime = Int32.Parse(Values[2]);
+                            int EndTime = Int32.Parse(Values[3]);
+                            CurrentSprite.OnTrigger(StartTime, EndTime, TriggerType);
+                        }
+                        break;
+                    case "L":
+                        {
+                            int StartTime = Int32.Parse(Values[1]);
+                            int LoopCount = Int32.Parse(Values[2]);
+                            CurrentSprite.BeginLoop(StartTime, LoopCount);
+                        }
+                        break;
+                    default:
+                        {
+                            Easing SpriteEasing = new Easing(Values[1]);
+                            int StartTime = Int32.Parse(Values[2]);
+                            int EndTime = String.IsNullOrEmpty(Values[3]) ? StartTime : Int32.Parse(Values[3]);
+
+                            switch (Values[0])
+                            {
+                                case "F":
+                                    {
+                                        if (Values.Length > 5)
+                                            CurrentSprite.Fade(SpriteEasing, StartTime, EndTime, double.Parse(Values[4]), double.Parse(Values[5]));
+                                        else
+                                            CurrentSprite.Fade(StartTime, double.Parse(Values[4]));
+                                    }
+                                    break;
+                                case "S":
+                                    {
+                                        if (Values.Length > 5)
+                                            CurrentSprite.Scale(SpriteEasing, StartTime, EndTime, double.Parse(Values[4]), double.Parse(Values[5]));
+                                        else
+                                            CurrentSprite.Scale(StartTime, double.Parse(Values[4]));
+                                    }
+                                    break;
+                                case "V":
+                                    {
+                                        if (Values.Length > 6)
+                                            CurrentSprite.ScaleVec(SpriteEasing, StartTime, EndTime, double.Parse(Values[4]), double.Parse(Values[5]), double.Parse(Values[6]), double.Parse(Values[7]));
+                                        else
+                                            CurrentSprite.ScaleVec(StartTime, double.Parse(Values[4]), double.Parse(Values[5]));
+                                    }
+                                    break;
+                                case "R":
+                                    {
+                                        if (Values.Length > 5)
+                                            CurrentSprite.Rotate(SpriteEasing, StartTime, EndTime, double.Parse(Values[4]), double.Parse(Values[5]));
+                                        else
+                                            CurrentSprite.Rotate(StartTime, double.Parse(Values[4]));
+                                    }
+                                    break;
+                                case "M":
+                                    {
+                                        if (Values.Length > 6)
+                                            CurrentSprite.Move(SpriteEasing, StartTime, EndTime, double.Parse(Values[4]), double.Parse(Values[5]), double.Parse(Values[6]), double.Parse(Values[7]));
+                                        else
+                                            CurrentSprite.Move(StartTime, double.Parse(Values[4]), double.Parse(Values[5]));
+                                    }
+                                    break;
+                                case "MX":
+                                    {
+                                        if (Values.Length > 5)
+                                            CurrentSprite.MoveX(SpriteEasing, StartTime, EndTime, double.Parse(Values[4]), double.Parse(Values[5]));
+                                        else
+                                            CurrentSprite.MoveX(StartTime, double.Parse(Values[4]));
+                                    }
+                                    break;
+                                case "MY":
+                                    {
+                                        if (Values.Length > 5)
+                                            CurrentSprite.MoveY(SpriteEasing, StartTime, EndTime, double.Parse(Values[4]), double.Parse(Values[5]));
+                                        else
+                                            CurrentSprite.MoveY(StartTime, double.Parse(Values[4]));
+                                    }
+                                    break;
+                                case "C":
+                                    {
+                                        if (Values.Length > 7)
+                                            CurrentSprite.Color(SpriteEasing, StartTime, EndTime, double.Parse(Values[4]) / 255.0, double.Parse(Values[5]) / 255.0, double.Parse(Values[6]) / 255.0, double.Parse(Values[7]) / 255.0, double.Parse(Values[8]) / 255.0, double.Parse(Values[9]) / 255.0);
+                                        else
+                                            CurrentSprite.Color(StartTime, double.Parse(Values[4]) / 255.0, double.Parse(Values[5]) / 255.0, double.Parse(Values[6]) / 255.0);
+                                    }
+                                    break;
+                                case "P":
+                                    {
+                                        switch (Values[4])
+                                        {
+                                            case "A":
+                                                CurrentSprite.Additive(StartTime, EndTime);
+                                                break;
+                                            case "H":
+                                                CurrentSprite.HFlip(StartTime, EndTime);
+                                                break;
+                                            case "V":
+                                                CurrentSprite.VFlip(StartTime, EndTime);
+                                                break;
+                                        }
+                                    }
+                                    break;
+                            }
+                        }
+                        break;
+                }
+            }
+        }
+
+        private Layer getEquivalentLayer(String LayerName)
+        {
+            switch(LayerName)
+            {
+                default:
+                case "Background": return Background;
+                case "Fail": return Fail;
+                case "Pass": return Pass;
+                case "Foreground": return Foreground;
+            }
         }
 
         public void Export()

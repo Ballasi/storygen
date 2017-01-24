@@ -1,6 +1,7 @@
 ﻿using storygen.Elements;
 using storygen.Util;
 using System;
+using System.Collections.Generic;
 
 namespace storygen
 {
@@ -8,7 +9,7 @@ namespace storygen
     {
         public Storyboard(String FolderPath) : base(FolderPath)
         {
-            Sprite bg = Background.CreateSprite("bg.jpg", Centre);
+            /*Sprite bg = Background.CreateSprite("bg.jpg", Centre);
             bg.Fade(0, 0.5);
             bg.Scale(62190, 0.625);
 
@@ -88,6 +89,114 @@ namespace storygen
 
             using (Mesh Violin = new Mesh(@"F:\violin.obj", 320, 265, Centre, Foreground, 5))
                 Violin.Render(84763, 107351, Mapset.BeatDuration * 16, 0.35, 1/4.0, 0.05, true, "SB/dot.png", false);
+
+            Sprite BG = Background.CreateSprite("bg.jpg", Centre);
+            BG.Fade(0, 1.0);
+            BG.Scale(204055, 0.625);
+
+            Sprite RingInterior = Foreground.CreateSprite("SB/ringinterior.png", Centre);
+            RingInterior.Fade(0, 1.0);
+            RingInterior.Scale(204055, 0.5);
+
+            String[] Content = System.IO.File.ReadAllLines(@"F:\test.lvl");
+            foreach (String Line in Content)
+            {
+                String[] Infos = Line.Split(',');
+                if (Infos[0] == "N")
+                    hit(Int32.Parse(Infos[1]), Double.Parse(Infos[2]), false);
+                else
+                {
+                    List<int> Timings = new List<int>();
+                    List<double> Positions = new List<double>();
+                    foreach (String Info in Infos)
+                    {
+                        if (Info == "S")
+                            continue;
+
+                        String[] CurrentPos = Info.Split(':');
+                        if (CurrentPos.Length == 1)
+                        {
+                            Timings.Add(Int32.Parse(CurrentPos[0]));
+                            Positions.Add(0.0);
+                        }
+                        else
+                        {
+                            Timings.Add(Int32.Parse(CurrentPos[0]));
+                            Positions.Add(Double.Parse(CurrentPos[1]));
+                        }
+                    }
+                    hold(Timings.ToArray(), Positions.ToArray());
+                }
+            }
+
+            /*hit(82597, 0.25, false);
+            hold(new int[] { 82597, 82918, 83240, 83454 }, new double[] { 0.4, 0.5, 0.3, 0.3 });
+
+            Sprite Ring = Foreground.CreateSprite("SB/ring.png", Centre);
+            Ring.Fade(0, 1.0);
+            Ring.Scale(204055, 0.5);
+
+            Sprite Cursor = Foreground.CreateSprite("SB/cursor.png", Centre);
+            Cursor.Fade(0, 1.0);
+            Cursor.Scale(204055, 480.0 / 1080.0); */
+
+            MergeWith(@"D:\Logiciels x32\osu!\Songs\372144 Cartoon - Whatever I Do (feat Kostja)\Cartoon - Whatever I Do (feat. Kostja) (Nhawak).osb");
+        }
+
+        public void hit(int Time, double Position, bool isSlider)
+        {
+            double Radius = 160;
+
+            Sprite Object = Foreground.CreateSprite("SB/hit.png", Centre);
+            Object.Scale(CubicIn, Time - 1000, Time, 0, 0.3);
+            Object.Rotate(Time, Position * Math.PI * 2);
+            Object.Move(CubicIn, Time - 1000, Time, 320, 240, Math.Sin(Position * Math.PI * 2) * Radius + 320, -Math.Cos(Position * Math.PI * 2) * Radius + 240);
+
+            for (int i = 0; i < (isSlider ? 1 : 20); i++)
+            {
+                double Rot = Random(Position * Math.PI * 2 - 0.5, Position * Math.PI * 2 + 0.5);
+                Vector2 IniPos = new Vector2(Math.Sin(Position * Math.PI * 2) * (Radius + 20) + 320, -Math.Cos(Position * Math.PI * 2) * (Radius + 20) + 240);
+                Vector2 FinPos = new Vector2(Math.Sin(Position * Math.PI * 2) * (Radius + 20) * Random(1.8, 2.0) + 320 + Random(-Random(30, 50), Random(30, 50)), -Math.Cos(Position * Math.PI * 2) * (Radius + 20) * Random(1.8, 2.0) + 240 + Random(-Random(30, 50), Random(30, 50)));
+
+                Sprite S = Foreground.CreateSprite("SB/circle.png", Centre);
+                S.Move(QuintOut, Time, Time + 1500, IniPos, FinPos);
+                S.Scale(Time, Random(0.02, 0.15)/8);
+                S.Fade(CubicIn, Time, Time + Random(500, 1500), Random(0.1, 0.3), 0.0);
+            }
+        }
+
+        public void hold(int[] Times, double[] Positions)
+        {
+            int lasttime = Times[0];
+            int lastcount = 0;
+            for (int i = Times[0]; i < Times[Times.Length-1]; i += 5)
+            {
+                if (i >= Times[lastcount + 1])
+                {
+                    bool dood = true;
+                    double padd = 0.005;
+                    if (Positions[lastcount + 1] - Positions[lastcount] < 0) dood = false;
+
+                    for (double p = Positions[lastcount]; dood ? (p < Positions[lastcount+1]) : (p > Positions[lastcount + 1]); p += dood ? padd : -padd)
+                    {
+                        hit(Times[lastcount+1], p, true);
+
+                        if (p > 82918 + 100) Console.WriteLine(p);
+
+                        if (p > 1.0) p -= 1.0;
+                        if (p < -1.0) p += 1.0;
+                    }
+                    
+                    lastcount++;
+                    lasttime = Times[lastcount];
+
+                    hit(lasttime, Positions[lastcount], true);
+                }
+                else
+                {
+                    hit(i, Positions[lastcount], true);
+                }
+            }
         }
     }
 }

@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Elements\Affectations.cs" />
     <Compile Include="Elements\Animation.cs" />
+    <Compile Include="Examples\Avalanche\AvalancheSB.cs" />
     <Compile Include="Mapset\Beatmap.cs" />
     <Compile Include="Mapset\HitObject.cs" />
     <Compile Include="Mapset\HitObjectTypes\Circle.cs" />
@@ -67,10 +68,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Examples\Avalanche\violin.obj" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Example\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
