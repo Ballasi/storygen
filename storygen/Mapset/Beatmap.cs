@@ -178,7 +178,7 @@ namespace storygen
                 if (Point.getType() == ControlPointTypes.Timing && Point.getOffset() < Time)
                     BPM = Point.getBPM();
             }
-            return 170;
+            return BPM;
         }
 
         public double getSliderVelocityAt(double Time)
