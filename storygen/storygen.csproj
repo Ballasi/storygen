@@ -46,6 +46,7 @@
     <Compile Include="Elements\Affectations.cs" />
     <Compile Include="Elements\Animation.cs" />
     <Compile Include="Examples\Avalanche\AvalancheSB.cs" />
+    <Compile Include="Examples\Sotarks.cs" />
     <Compile Include="Mapset\Beatmap.cs" />
     <Compile Include="Mapset\HitObject.cs" />
     <Compile Include="Mapset\HitObjectTypes\Circle.cs" />
@@ -55,6 +56,7 @@
     <Compile Include="Mapset\ControlPoint.cs" />
     <Compile Include="Util\Color.cs" />
     <Compile Include="Util\Mesh.cs" />
+    <Compile Include="Util\Text\Font.cs" />
     <Compile Include="Util\Vector2.cs" />
     <Compile Include="Storyboard\Easing.cs" />
     <Compile Include="MainClass.cs" />

@@ -10,16 +10,19 @@ namespace storygen
         Origin Origin;
         Affectations Affectations;
         bool Hidden;
+        double X, Y;
 
         public Sprite()
         {
         }
 
-        public Sprite(String Path, Origin Origin)
+        public Sprite(String Path, Origin Origin, double X, double Y)
         {
             this.Path = Path;
             this.Origin = Origin;
             Hidden = false;
+            this.X = X;
+            this.Y = Y;
 
             Affectations = new Affectations();
         }
@@ -27,7 +30,9 @@ namespace storygen
         public String getPath() => Path;
         public Origin getOrigin() => Origin;
         public String getAffections() => Affectations.Output();
-        public virtual String getFirstLine() => getOrigin().getName() + ",\"" + getPath() + "\",320,240";
+        public double getX() => X;
+        public double getY() => Y;
+        public virtual String getFirstLine() => getOrigin().getName() + ",\"" + getPath() + "\"," + X + "," + Y;
 
         public void BeginLoop(double Time, double Count)
             => Affectations.StartLoop(new String[] { ((int) Time).ToString(), ((int) Count).ToString() });

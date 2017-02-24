@@ -48,6 +48,10 @@ namespace storygen.Util
                     while (!StreamReader.EndOfStream)
                     {
                         String Line = StreamReader.ReadLine();
+
+                        if (Line.StartsWith("#"))
+                            continue;
+
                         String[] Values = Line.Split(' ');
 
                         if (Values[0] == "v")
@@ -61,7 +65,7 @@ namespace storygen.Util
                             var Y = double.Parse(Values[2]);
                             var Z = double.Parse(Values[3]);
 
-                            Vertices.Add( new Vector3(X, Y, Z) );
+                            Vertices.Add(new Vector3(X, Y, Z));
                         }
                     }
                 }
@@ -117,7 +121,7 @@ namespace storygen.Util
                 }
 
                 if (ImageRotation)
-                    Sprite.Rotate(0, RevolutionDuration, 0, -Math.PI*2);
+                    Sprite.Rotate(0, RevolutionDuration, 0, -Math.PI * 2);
 
                 Sprite.EndLoop();
             }

@@ -19,14 +19,28 @@ namespace storygen
 
         public Sprite CreateSprite(String Path, Origin Origin)
         {
-            Sprite sprite = new Sprite(Path, Origin);
+            Sprite sprite = new Sprite(Path, Origin, 320, 240);
+            sprites.Add(sprite);
+            return sprite;
+        }
+
+        public Sprite CreateSprite(String Path, Origin Origin, double X, double Y)
+        {
+            Sprite sprite = new Sprite(Path, Origin, X, Y);
             sprites.Add(sprite);
             return sprite;
         }
 
         public Animation CreateAnimation(String Path, Origin Origin, int FrameCount, int FrameDelay, LoopType LoopType)
         {
-            Animation animation = new Animation(Path, Origin, FrameCount, FrameDelay, LoopType);
+            Animation animation = new Animation(Path, Origin, 320, 240, FrameCount, FrameDelay, LoopType);
+            sprites.Add(animation);
+            return animation;
+        }
+
+        public Animation CreateAnimation(String Path, Origin Origin, double X, double Y, int FrameCount, int FrameDelay, LoopType LoopType)
+        {
+            Animation animation = new Animation(Path, Origin, X, Y, FrameCount, FrameDelay, LoopType);
             sprites.Add(animation);
             return animation;
         }

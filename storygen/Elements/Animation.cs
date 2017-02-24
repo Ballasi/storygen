@@ -11,7 +11,7 @@ namespace storygen.Elements
         int FrameCount, FrameDelay;
         LoopType LoopType;
 
-        public Animation(string Path, Origin Origin, int FrameCount, int FrameDelay, LoopType LoopType) : base(Path, Origin)
+        public Animation(string Path, Origin Origin, double X, double Y, int FrameCount, int FrameDelay, LoopType LoopType) : base(Path, Origin, X, Y)
         {
             this.FrameCount = FrameCount;
             this.FrameDelay = FrameDelay;
@@ -21,7 +21,7 @@ namespace storygen.Elements
         public int getFrameCount() => FrameCount;
         public int getFrameDelay() => FrameDelay;
         public LoopType getLoopType() => LoopType;
-        public override String getFirstLine() => getOrigin().getName() + ",\"" + getPath() + "\",320,240," + getFrameCount() + "," + getFrameDelay() + "," + getLoopType().getName();
+        public override String getFirstLine() => getOrigin().getName() + ",\"" + getPath() + "\"," + getX() + "," + getY() + "," + getFrameCount() + "," + getFrameDelay() + "," + getLoopType().getName();
     }
 
     class LoopType

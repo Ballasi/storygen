@@ -129,7 +129,9 @@ namespace storygen
                             Layer SpriteLayer = getEquivalentLayer(Values[1]);
                             Origin SpriteOrigin = new Origin(Values[2]);
                             String SpritePath = Values[3].Substring(1, Values[3].Length - 2);
-                            CurrentSprite = SpriteLayer.CreateSprite(SpritePath, SpriteOrigin);
+                            var X = Double.Parse(Values[4]);
+                            var Y = Double.Parse(Values[5]);
+                            CurrentSprite = SpriteLayer.CreateSprite(SpritePath, SpriteOrigin, X, Y);
                         }
                         break;
                     case "Animation":
@@ -137,10 +139,12 @@ namespace storygen
                             Layer SpriteLayer = getEquivalentLayer(Values[1]);
                             Origin SpriteOrigin = new Origin(Values[2]);
                             String SpritePath = Values[3].Substring(1, Values[3].Length - 2);
+                            var X = Double.Parse(Values[4]);
+                            var Y = Double.Parse(Values[5]);
                             int FrameCount = Int32.Parse(Values[6]);
                             int FrameDelay = Int32.Parse(Values[7]);
                             LoopType LoopType = new LoopType(Values[8]);
-                            CurrentSprite = SpriteLayer.CreateAnimation(SpritePath, SpriteOrigin, FrameCount, FrameDelay, LoopType);
+                            CurrentSprite = SpriteLayer.CreateAnimation(SpritePath, SpriteOrigin, X, Y, FrameCount, FrameDelay, LoopType);
                         }
                         break;
                     case "T":

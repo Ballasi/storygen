@@ -23,14 +23,10 @@ namespace storygen
         }
 
         public String getName()
-        {
-            return EasingName;
-        }
+            => EasingName;
 
         public int getID()
-        {
-            return EasingID;
-        }
+            => EasingID;
 
         /*
             The code here is mainly taken from Damnae's storybrew repository
