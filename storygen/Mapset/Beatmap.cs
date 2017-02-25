@@ -127,7 +127,7 @@ namespace storygen
                     int Time = Int32.Parse(Parameters[2]);
                     Object = new Slider(Type, Vector, Time, new double[] { getBPMAt(Time), getSliderVelocityAt(Time) }, SliderParameters.ToArray());
                 }
-                else
+                else if (Type.HasFlag(HitObjectType.Spinner))
                     Object = new Spinner(Type, Vector, Int32.Parse(Parameters[2]), Int32.Parse(Parameters[5]));
 
                 ParsedObjects.Add(Object);

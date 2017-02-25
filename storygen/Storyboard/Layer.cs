@@ -7,7 +7,7 @@ namespace storygen
     class Layer
     {
         String layer;
-        List<Sprite> sprites = new List<Sprite>();
+        public List<Sprite> sprites = new List<Sprite>();
 
         public Layer(int id)
         {
