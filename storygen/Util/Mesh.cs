@@ -32,6 +32,16 @@ namespace storygen.Util
             Generate(Quality);
         }
 
+        public Mesh(List<Vector3> Vertices, double PositionX, double PositionY, Origin Origin, Layer Layer, int Quality)
+        {
+            this.PositionX = PositionX;
+            this.PositionY = PositionY;
+            this.Layer = Layer;
+            this.Origin = Origin;
+
+            this.Vertices = Vertices;
+        }
+
         public String getFilePath() => FilePath;
         public Vector2 getPosition() => new Vector2(PositionX, PositionY);
         public List<Vector3> getVertices() => Vertices;
@@ -77,8 +87,10 @@ namespace storygen.Util
             }
         }
 
-        public void Render(double StartTime, double EndTime, double RevolutionDuration, double Scale, double Tilt, double SpriteScale, bool Revolution, String SpritePath, bool ImageRotation)
+        public List<Sprite> Render(double StartTime, double EndTime, double RevolutionDuration, double Scale, double Tilt, double SpriteScale, bool Revolution, String SpritePath, bool ImageRotation, bool AutoFade = true, bool AutoScale = true)
         {
+            List<Sprite> Sprites = new List<Sprite>();
+
             foreach (Vector3 Vertex in Vertices)
             {
                 Sprite Sprite = Layer.CreateSprite(SpritePath, Origin);
@@ -86,12 +98,16 @@ namespace storygen.Util
                 double Delay = Angle / (Math.PI * 2) * RevolutionDuration;
                 double Radius = Scale * Vector2.Distance(new Vector2(Vertex.X, Vertex.Z), new Vector2());
 
-                if (SpriteScale != 0)
+                if (SpriteScale != 0 && AutoScale)
                     Sprite.Scale(StartTime, SpriteScale);
 
                 Sprite.Fade(StartTime - Delay - RevolutionDuration, 0);
-                Sprite.Fade(StartTime, 1);
-                Sprite.Fade(EndTime, 0);
+
+                if (AutoFade)
+                {
+                    Sprite.Fade(StartTime, 1);
+                    Sprite.Fade(EndTime, 0);
+                }
 
                 Sprite.BeginLoop(StartTime - Delay - RevolutionDuration, (EndTime - StartTime) / RevolutionDuration + 3);
 
@@ -124,7 +140,11 @@ namespace storygen.Util
                     Sprite.Rotate(0, RevolutionDuration, 0, -Math.PI * 2);
 
                 Sprite.EndLoop();
+
+                Sprites.Add(Sprite);
             }
+
+            return Sprites;
         }
 
         public void Dispose()

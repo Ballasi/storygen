@@ -255,9 +255,9 @@ namespace storygen
         public void Color(double StartTime, double EndTime, double StartR, double StartG, double StartB, double EndR, double EndG, double EndB)
             => Color(0, StartTime, EndTime, StartR, StartG, StartB, EndR, EndG, EndB);
 
-        public void Color(int Time, Color Color)
+        public void Color(double Time, Color Color)
             => this.Color(Time, Color.R, Color.G, Color.B);
-        public void Color(int StartTime, int EndTime, Color StartColor, Color EndColor)
+        public void Color(double StartTime, double EndTime, Color StartColor, Color EndColor)
             => this.Color(StartTime, EndTime, StartColor.R, StartColor.G, StartColor.B, EndColor.R, EndColor.G, EndColor.B);
 
         public void HFlip(double StartTime, double EndTime)

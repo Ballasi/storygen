@@ -12,9 +12,9 @@
 
         public Color(double R, double G, double B)
         {
-            this.R = R;
-            this.G = G;
-            this.B = B;
+            this.R = R / 255;
+            this.G = G / 255;
+            this.B = B / 255;
         }
     }
 }

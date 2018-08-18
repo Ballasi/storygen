@@ -22,6 +22,12 @@ namespace storygen
             }
         }
 
+        public Easing(int ID)
+        {
+            this.EasingName = Easings[ID];
+            EasingID = ID;
+        }
+
         public String getName()
             => EasingName;
 

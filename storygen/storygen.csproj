@@ -9,9 +9,10 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>storygen</RootNamespace>
     <AssemblyName>storygen</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -45,8 +46,18 @@
   <ItemGroup>
     <Compile Include="Elements\Affectations.cs" />
     <Compile Include="Elements\Animation.cs" />
-    <Compile Include="Examples\Avalanche\AvalancheSB.cs" />
-    <Compile Include="Examples\Sotarks.cs" />
+    <Compile Include="Examples\Area\Area.cs" />
+    <Compile Include="Examples\Pied Dust\PiedDust.cs" />
+    <Compile Include="ExitSB\BackgroundManager.cs" />
+    <Compile Include="ExitSB\Effect.cs" />
+    <Compile Include="ExitSB\Interface\UIElements.cs" />
+    <Compile Include="ExitSB\Interface\UIrect.cs" />
+    <Compile Include="ExitSB\Introduction\Introduction.cs" />
+    <Compile Include="ExitSB\Kiai\KiaiManager.cs" />
+    <Compile Include="ExitSB\Kiai\KiaiWubs.cs" />
+    <Compile Include="ExitSB\Kiai\SpeedOfLight.cs" />
+    <Compile Include="ExitSB\MainStoryboard.cs" />
+    <Compile Include="ExitSB\SBFolderUpdater.cs" />
     <Compile Include="Mapset\Beatmap.cs" />
     <Compile Include="Mapset\HitObject.cs" />
     <Compile Include="Mapset\HitObjectTypes\Circle.cs" />
@@ -56,7 +67,7 @@
     <Compile Include="Mapset\ControlPoint.cs" />
     <Compile Include="Util\Color.cs" />
     <Compile Include="Util\Mesh.cs" />
-    <Compile Include="Util\Text\Font.cs" />
+    <Compile Include="Util\Methods.cs" />
     <Compile Include="Util\Vector2.cs" />
     <Compile Include="Storyboard\Easing.cs" />
     <Compile Include="MainClass.cs" />
@@ -70,7 +81,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="Examples\Avalanche\violin.obj" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,5 +1,6 @@
 ﻿using storygen.Util;
 using System;
+using System.IO;
 using System.Collections.Generic;
 
 namespace storygen
@@ -38,6 +39,14 @@ namespace storygen
         {
             String ExportContent = "";
             String FilePath = FolderPath + getProperty("Artist") + " - " + getProperty("Title") + " (" + getProperty("Creator") + ") [" + DifficultyName + "].osu";
+
+            foreach (char c in new string(Path.GetInvalidFileNameChars()) + new string(Path.GetInvalidPathChars()))
+            {
+                if (c == '\\' || c == ':')
+                    continue;
+
+                FilePath = FilePath.Replace(c.ToString(), "");
+            }
 
             bool SBPart = false;
             for (int i = 0; i < Content.Length; i++)
@@ -175,7 +184,7 @@ namespace storygen
 
             foreach (ControlPoint Point in ControlPoints)
             {
-                if (Point.getType() == ControlPointTypes.Timing && Point.getOffset() < Time)
+                if (Point.getType() == ControlPointTypes.Timing && Point.getOffset() <= Time)
                     BPM = Point.getBPM();
             }
             return BPM;
@@ -187,7 +196,7 @@ namespace storygen
 
             foreach (ControlPoint Point in ControlPoints)
             {
-                if (Point.getType() == ControlPointTypes.Timing && Point.getOffset() < Time)
+                if (Point.getType() == ControlPointTypes.Timing && Point.getOffset() <= Time)
                     Multiplier = Point.getSVMuliplier();
             }
             return SliderVelocity * Multiplier;

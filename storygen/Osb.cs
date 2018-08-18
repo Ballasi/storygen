@@ -164,7 +164,7 @@ namespace storygen
                         break;
                     default:
                         {
-                            Easing SpriteEasing = new Easing(Values[1]);
+                            Easing SpriteEasing = new Easing(Int32.Parse(Values[1]));
                             int StartTime = Int32.Parse(Values[2]);
                             int EndTime = String.IsNullOrEmpty(Values[3]) ? StartTime : Int32.Parse(Values[3]);
 
@@ -273,7 +273,15 @@ namespace storygen
         {
             String FilePath = FolderPath + Mapset.getArtistName() + " - " + Mapset.getTitle() + " (" + Mapset.getCreator() + ").osb";
 
-                // MAKING UP CONTENT
+            foreach (char c in new string(Path.GetInvalidFileNameChars()) + new string(Path.GetInvalidPathChars()))
+            {
+                if (c == '\\' || c == ':')
+                    continue;
+
+                FilePath = FilePath.Replace(c.ToString(), "");
+            }
+
+            // MAKING UP CONTENT
             String Content = "";
 
             Content += "[Events]\n//Background and Video events\n";
@@ -291,8 +299,8 @@ namespace storygen
             if (Foreground.getContent() != null) Content += Foreground.getContent();
 
             Content += "//Storyboard Sound Samples\n";
-
-            System.IO.File.WriteAllText(FilePath, Content);
+            
+            System.IO.File.WriteAllText(FilePath, Content);                
 
             foreach (Beatmap Beatmap in Mapset.getBeatmaps())
                 Beatmap.Export();
