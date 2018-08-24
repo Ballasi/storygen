@@ -4,7 +4,7 @@
     {
         static void Main(string[] args)
         {
-            Storyboard Storyboard = new Storyboard(@"D:\path");
+            MainStoryboard Storyboard = new MainStoryboard(@"E:\Program Files\osu!\Songs\Camellia+-+\");
             
             Storyboard.Export();
         }

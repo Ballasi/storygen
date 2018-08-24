@@ -34,7 +34,7 @@ namespace storygen
             Directory.CreateDirectory(this.Path);
         }
 
-        public List<Sprite> WriteSentence(String Text, int Time, Vector2 Position, Origin Origin, Layer Layer, TextAlign Alignment, double Scale = 480.0 / 1080.0)
+        public Sentence WriteSentence(String Text, int Time, Vector2 Position, Origin Origin, Layer Layer, TextAlign Alignment, double Scale = 480.0 / 1080.0)
         {
             List<Sprite> TextSprites = new List<Sprite>();
 
@@ -138,7 +138,7 @@ namespace storygen
                 TextSprites.Add(Sprite);
             }
 
-            return TextSprites;
+            return new Sentence(SentenceSize, TextSprites, Alignment);
         }
 
         private FontText CreateSprite(String Text)
