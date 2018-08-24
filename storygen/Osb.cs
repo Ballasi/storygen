@@ -184,6 +184,8 @@ namespace storygen
                                     {
                                         if (Values.Length > 5)
                                             CurrentSprite.Fade(SpriteEasing, StartTime, EndTime, double.Parse(Values[4]), double.Parse(Values[5]));
+                                        else if (StartTime != EndTime)
+                                            CurrentSprite.Fade(SpriteEasing, StartTime, EndTime, double.Parse(Values[4]), double.Parse(Values[4]));
                                         else
                                             CurrentSprite.Fade(StartTime, double.Parse(Values[4]));
                                     }
@@ -192,6 +194,8 @@ namespace storygen
                                     {
                                         if (Values.Length > 5)
                                             CurrentSprite.Scale(SpriteEasing, StartTime, EndTime, double.Parse(Values[4]), double.Parse(Values[5]));
+                                        else if (StartTime != EndTime)
+                                            CurrentSprite.Scale(SpriteEasing, StartTime, EndTime, double.Parse(Values[4]), double.Parse(Values[4]));
                                         else
                                             CurrentSprite.Scale(StartTime, double.Parse(Values[4]));
                                     }
@@ -200,6 +204,8 @@ namespace storygen
                                     {
                                         if (Values.Length > 6)
                                             CurrentSprite.ScaleVec(SpriteEasing, StartTime, EndTime, double.Parse(Values[4]), double.Parse(Values[5]), double.Parse(Values[6]), double.Parse(Values[7]));
+                                        else if (StartTime != EndTime)
+                                            CurrentSprite.ScaleVec(SpriteEasing, StartTime, EndTime, double.Parse(Values[4]), double.Parse(Values[5]), double.Parse(Values[4]), double.Parse(Values[5]));
                                         else
                                             CurrentSprite.ScaleVec(StartTime, double.Parse(Values[4]), double.Parse(Values[5]));
                                     }
@@ -208,6 +214,8 @@ namespace storygen
                                     {
                                         if (Values.Length > 5)
                                             CurrentSprite.Rotate(SpriteEasing, StartTime, EndTime, double.Parse(Values[4]), double.Parse(Values[5]));
+                                        else if (StartTime != EndTime)
+                                            CurrentSprite.Rotate(SpriteEasing, StartTime, EndTime, double.Parse(Values[4]), double.Parse(Values[4]));
                                         else
                                             CurrentSprite.Rotate(StartTime, double.Parse(Values[4]));
                                     }
@@ -216,6 +224,8 @@ namespace storygen
                                     {
                                         if (Values.Length > 6)
                                             CurrentSprite.Move(SpriteEasing, StartTime, EndTime, double.Parse(Values[4]), double.Parse(Values[5]), double.Parse(Values[6]), double.Parse(Values[7]));
+                                        else if (StartTime != EndTime)
+                                            CurrentSprite.Move(SpriteEasing, StartTime, EndTime, double.Parse(Values[4]), double.Parse(Values[5]), double.Parse(Values[4]), double.Parse(Values[5]));
                                         else
                                             CurrentSprite.Move(StartTime, double.Parse(Values[4]), double.Parse(Values[5]));
                                     }
@@ -224,6 +234,8 @@ namespace storygen
                                     {
                                         if (Values.Length > 5)
                                             CurrentSprite.MoveX(SpriteEasing, StartTime, EndTime, double.Parse(Values[4]), double.Parse(Values[5]));
+                                        else if (StartTime != EndTime)
+                                            CurrentSprite.MoveX(SpriteEasing, StartTime, EndTime, double.Parse(Values[4]), double.Parse(Values[4]));
                                         else
                                             CurrentSprite.MoveX(StartTime, double.Parse(Values[4]));
                                     }
@@ -232,6 +244,8 @@ namespace storygen
                                     {
                                         if (Values.Length > 5)
                                             CurrentSprite.MoveY(SpriteEasing, StartTime, EndTime, double.Parse(Values[4]), double.Parse(Values[5]));
+                                        else if (StartTime != EndTime)
+                                            CurrentSprite.MoveY(SpriteEasing, StartTime, EndTime, double.Parse(Values[4]), double.Parse(Values[4]));
                                         else
                                             CurrentSprite.MoveY(StartTime, double.Parse(Values[4]));
                                     }
@@ -240,6 +254,8 @@ namespace storygen
                                     {
                                         if (Values.Length > 7)
                                             CurrentSprite.Color(SpriteEasing, StartTime, EndTime, double.Parse(Values[4]) / 255.0, double.Parse(Values[5]) / 255.0, double.Parse(Values[6]) / 255.0, double.Parse(Values[7]) / 255.0, double.Parse(Values[8]) / 255.0, double.Parse(Values[9]) / 255.0);
+                                        else if (StartTime != EndTime)
+                                            CurrentSprite.Color(SpriteEasing, StartTime, EndTime, double.Parse(Values[4]) / 255.0, double.Parse(Values[5]) / 255.0, double.Parse(Values[6]) / 255.0, double.Parse(Values[4]) / 255.0, double.Parse(Values[5]) / 255.0, double.Parse(Values[6]) / 255.0);
                                         else
                                             CurrentSprite.Color(StartTime, double.Parse(Values[4]) / 255.0, double.Parse(Values[5]) / 255.0, double.Parse(Values[6]) / 255.0);
                                     }

@@ -71,6 +71,7 @@
     <Compile Include="Mapset\Mapset.cs" />
     <Compile Include="Mapset\ControlPoint.cs" />
     <Compile Include="Text\Font.cs" />
+    <Compile Include="Text\Sentence.cs" />
     <Compile Include="Text\Text.cs" />
     <Compile Include="Util\Color.cs" />
     <Compile Include="Util\Mesh.cs" />
