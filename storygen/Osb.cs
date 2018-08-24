@@ -27,6 +27,13 @@ namespace storygen
 
         public Text Text;
 
+        public static string getScriptFolder()
+            => System.IO.Directory.GetParent(
+                                  System.IO.Directory.GetParent(
+                                    System.IO.Directory.GetCurrentDirectory()
+                                  ).ToString()
+                                ).ToString() + "\\";
+
         public Osb()
         {
         }

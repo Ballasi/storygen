@@ -34,8 +34,10 @@ namespace storygen
             Directory.CreateDirectory(this.Path);
         }
 
-        public Sentence WriteSentence(String Text, int Time, Vector2 Position, Origin Origin, Layer Layer, TextAlign Alignment, double Scale = 480.0 / 1080.0)
+        public Sentence WriteSentence(String Text, int Time, Vector2 Position, Origin Origin, Layer Layer, TextAlign Alignment, bool ScaleSprite = true, double Scale = 480.0 / 1080.0)
         {
+            Text = Text.Trim();
+
             List<Sprite> TextSprites = new List<Sprite>();
 
             double X = Position.X;
@@ -132,7 +134,8 @@ namespace storygen
                 }
 
                 Sprite Sprite = Layer.CreateSprite(Path + s.getFileName() + ".png", Origin, X + LayerDecX + XDec, Y + LayerDecY);
-                Sprite.Scale(Time, Scale);
+                if (ScaleSprite)
+                    Sprite.Scale(Time, Scale);
 
                 X += Scale * s.getWidth() - Size * Scale * 0.45;
                 TextSprites.Add(Sprite);

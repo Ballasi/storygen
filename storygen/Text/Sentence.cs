@@ -11,12 +11,14 @@ namespace storygen
         public double Size;
         public List<Sprite> Sprites;
         public TextAlign Alignment;
+        public int Length;
 
         public Sentence(double Size, List<Sprite> Sprites, TextAlign Alignment)
         {
             this.Size = Size;
             this.Sprites = Sprites;
             this.Alignment = Alignment;
+            Length = Sprites.Count;
         }
     }
 }

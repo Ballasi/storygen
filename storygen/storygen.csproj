@@ -47,8 +47,7 @@
   <ItemGroup>
     <Compile Include="Elements\Affectations.cs" />
     <Compile Include="Elements\Animation.cs" />
-    <Compile Include="Examples\Area\Area.cs" />
-    <Compile Include="Examples\Pied Dust\PiedDust.cs" />
+    <Compile Include="Examples\Fridthaegingin\Fridthaegingin.cs" />
     <Compile Include="ExitSB\BackgroundManager.cs" />
     <Compile Include="ExitSB\Effect.cs" />
     <Compile Include="ExitSB\Interface\CirclePresets.cs" />
