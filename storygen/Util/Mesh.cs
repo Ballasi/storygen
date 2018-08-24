@@ -17,7 +17,7 @@ namespace storygen.Util
         Origin Origin;
         bool Disposed;
 
-        public Mesh(String FilePath, double PositionX, double PositionY, Origin Origin, Layer Layer, int Quality)
+        public Mesh(String FilePath, double PositionX, double PositionY, Origin Origin, Layer Layer, int Quality = 1)
         {
             this.FilePath = FilePath;
             this.PositionX = PositionX;
@@ -32,7 +32,7 @@ namespace storygen.Util
             Generate(Quality);
         }
 
-        public Mesh(List<Vector3> Vertices, double PositionX, double PositionY, Origin Origin, Layer Layer, int Quality)
+        public Mesh(List<Vector3> Vertices, double PositionX, double PositionY, Origin Origin, Layer Layer, int Quality = 1)
         {
             this.PositionX = PositionX;
             this.PositionY = PositionY;
@@ -87,7 +87,7 @@ namespace storygen.Util
             }
         }
 
-        public List<Sprite> Render(double StartTime, double EndTime, double RevolutionDuration, double Scale, double Tilt, double SpriteScale, bool Revolution, String SpritePath, bool ImageRotation, bool AutoFade = true, bool AutoScale = true)
+        public List<Sprite> Render(double StartTime, double EndTime, double RevolutionDuration, double Scale, double Tilt, double SpriteScale, String SpritePath, bool ImageRotation = false, bool AutoFade = true, bool AutoScale = true, bool Revolution = true)
         {
             List<Sprite> Sprites = new List<Sprite>();
 

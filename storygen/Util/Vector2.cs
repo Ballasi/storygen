@@ -24,5 +24,11 @@ namespace storygen.Util
 
         public static double Angle(Vector2 Vec1, Vector2 Vec2)
             => Math.Atan2(Vec2.Y - Vec1.Y, Vec2.X - Vec1.X);
+
+        public static Vector2 operator + (Vector2 a, Vector2 b)
+            => new Vector2(a.X + b.X, a.Y + b.Y);
+
+        public static Vector2 operator - (Vector2 a, Vector2 b)
+            => new Vector2(a.X - b.X, a.Y - b.Y);
     }
 }

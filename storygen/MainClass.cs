@@ -1,12 +1,10 @@
-﻿using storygen.Examples;
-
-namespace storygen
+﻿namespace storygen
 {
     class MainClass
     {
         static void Main(string[] args)
         {
-            MainStoryboard Storyboard = new MainStoryboard(@"E:\Program Files\osu!\Songs\Camellia+-+\");
+            Storyboard Storyboard = new Storyboard(@"D:\path");
             
             Storyboard.Export();
         }

@@ -5,125 +5,165 @@ namespace storygen
 {
     class Affectations
     {
-        public List<String[]> Movements, MovementsX, MovementsY, Fades, Scales, VecScales, Rotations, Loops, Triggers, Colors, ElemParameters;
+        public List<Loop> Loops;
+        public List<Affectation> Movements, MovementsX, MovementsY, Fades, Scales, VecScales, Rotations, Triggers, Colors, ElemParameters;
         String Content;
-        bool InLoop, InTrigger;
+        Loop CurrentLoop;
+        int GroupDepth;
 
         public Affectations()
         {
-            Movements = new List<String[]>();
-            MovementsX = new List<String[]>();
-            MovementsY = new List<String[]>();
-            Fades = new List<String[]>();
-            Scales = new List<String[]>();
-            VecScales = new List<String[]>();
-            Rotations = new List<String[]>();
-            Colors = new List<String[]>();
-            ElemParameters = new List<String[]>();
-            Loops = new List<String[]>();
-            Triggers = new List<String[]>();
+            Movements = new List<Affectation>();
+            MovementsX = new List<Affectation>();
+            MovementsY = new List<Affectation>();
+            Fades = new List<Affectation>();
+            Scales = new List<Affectation>();
+            VecScales = new List<Affectation>();
+            Rotations = new List<Affectation>();
+            Colors = new List<Affectation>();
+            ElemParameters = new List<Affectation>();
+            Loops = new List<Loop>();
+            Triggers = new List<Affectation>();
 
-            InLoop = false;
-            InTrigger = false;
+            GroupDepth = 0;
             Content = null;
+            CurrentLoop = null;
         }
 
         public void StartLoop(String[] Parameters)
         {
-            Loops.Add(Parameters);
-            Content += getEquivalentLine("L", Parameters);
-            InLoop = true;
+            Loop Affectation = new Loop("L", GroupDepth, Parameters);
+            Loops.Add(Affectation);
+            Content += Affectation.getEquivalentLine();
+            GroupDepth++;
+            CurrentLoop = Affectation;
         }
 
         public void EndLoop()
         {
-            InLoop = false;
+            CurrentLoop = null;
+            GroupDepth--;
         }
 
         public void StartTrigger(String[] Parameters)
         {
-            Triggers.Add(Parameters);
-            Content += getEquivalentLine("T", Parameters);
-            InTrigger = true;
+            Affectation Affectation = new Affectation("T", GroupDepth, Parameters);
+            Triggers.Add(Affectation);
+            Content += Affectation.getEquivalentLine();
+            GroupDepth++;
         }
 
         public void EndTrigger()
         {
-            InTrigger = false;
+            GroupDepth--;
         }
 
         public void AddMovement(String[] Parameters)
         {
-            Movements.Add(Parameters);
-            Content += getEquivalentLine("M", Parameters);
+            Affectation Affectation = new Affectation("M", GroupDepth, Parameters, CurrentLoop);
+            Movements.Add(Affectation);
+            Content += Affectation.getEquivalentLine();
         }
 
         public void AddMovementX(String[] Parameters)
         {
-            MovementsX.Add(Parameters);
-            Content += getEquivalentLine("MX", Parameters);
+            Affectation Affectation = new Affectation("MX", GroupDepth, Parameters, CurrentLoop);
+            MovementsX.Add(Affectation);
+            Content += Affectation.getEquivalentLine();
         }
 
         public void AddMovementY(String[] Parameters)
         {
-            MovementsY.Add(Parameters);
-            Content += getEquivalentLine("MY", Parameters);
+            Affectation Affectation = new Affectation("MY", GroupDepth, Parameters, CurrentLoop);
+            MovementsY.Add(Affectation);
+            Content += Affectation.getEquivalentLine();
         }
 
         public void AddFading(String[] Parameters)
         {
-            Fades.Add(Parameters);
-            Content += getEquivalentLine("F", Parameters);
+            Affectation Affectation = new Affectation("F", GroupDepth, Parameters, CurrentLoop);
+            Fades.Add(Affectation);
+            Content += Affectation.getEquivalentLine();
         }
 
         public void AddScaling(String[] Parameters)
         {
-            Scales.Add(Parameters);
-            Content += getEquivalentLine("S", Parameters);
+            Affectation Affectation = new Affectation("S", GroupDepth, Parameters, CurrentLoop);
+            Scales.Add(Affectation);
+            Content += Affectation.getEquivalentLine();
         }
 
         public void AddVecScaling(String[] Parameters)
         {
-            VecScales.Add(Parameters);
-            Content += getEquivalentLine("V", Parameters);
+            Affectation Affectation = new Affectation("V", GroupDepth, Parameters, CurrentLoop);
+            VecScales.Add(Affectation);
+            Content += Affectation.getEquivalentLine();
         }
 
         public void AddRotation(String[] Parameters)
         {
-            Rotations.Add(Parameters);
-            Content += getEquivalentLine("R", Parameters);
+            Affectation Affectation = new Affectation("R", GroupDepth, Parameters, CurrentLoop);
+            Rotations.Add(Affectation);
+            Content += Affectation.getEquivalentLine();
         }
 
         public void AddColor(String[] Parameters)
         {
-            Colors.Add(Parameters);
-            Content += getEquivalentLine("C", Parameters);
+            Affectation Affectation = new Affectation("C", GroupDepth, Parameters, CurrentLoop);
+            Colors.Add(Affectation);
+            Content += Affectation.getEquivalentLine();
         }
 
         public void AddHFlip(String[] Parameters)
         {
-            ElemParameters.Add(Parameters);
-            Content += getEquivalentLine("P", Parameters);
+            Affectation Affectation = new Affectation("P", GroupDepth, Parameters, CurrentLoop);
+            ElemParameters.Add(Affectation);
+            Content += Affectation.getEquivalentLine();
         }
 
         public void AddVFlip(String[] Parameters)
         {
-            ElemParameters.Add(Parameters);
-            Content += getEquivalentLine("P", Parameters);
+            Affectation Affectation = new Affectation("P", GroupDepth, Parameters, CurrentLoop);
+            ElemParameters.Add(Affectation);
+            Content += Affectation.getEquivalentLine();
         }
 
         public void AddAdditive(String[] Parameters)
         {
-            ElemParameters.Add(Parameters);
-            Content += getEquivalentLine("P", Parameters);
+            Affectation Affectation = new Affectation("P", GroupDepth, Parameters, CurrentLoop);
+            ElemParameters.Add(Affectation);
+            Content += Affectation.getEquivalentLine();
         }
 
-        private String getEquivalentLine(String Type, String[] Parameters)
+        public String Output()
         {
-            String Line = " ";
-            if (InLoop || InTrigger) Line += " ";
+            return Content;
+        }
+    }
+
+    class Affectation
+    {
+        public string Type { get; }
+        public Loop Loop { get; }
+        public int GroupDepth;
+        public String[] Parameters { get; }
+
+        public Affectation(string Type, int GroupDepth, String[] Parameters, Loop Loop = null)
+        {
+            this.Type = Type;
+            this.GroupDepth = GroupDepth;
+            this.Parameters = Parameters;
+            this.Loop = Loop;
+
+            if (Loop != null)
+                Loop.AddTimes(Parameters[1], Parameters[2]);
+        }
+
+        public String getEquivalentLine()
+        {
+            String Line = new String(' ', GroupDepth + 1);
             Line += Type;
-            
+
             foreach (String Parameter in Parameters)
             {
                 Line += "," + Parameter;
@@ -131,10 +171,34 @@ namespace storygen
 
             return Line + "\n";
         }
+    }
 
-        public String Output()
+    class Loop : Affectation
+    {
+        int ElemStart = -1;
+        int ElemEnd = -1;
+
+        public int getDuration() => ElemEnd - ElemStart;
+        public int getStartTime() => Int32.Parse(Parameters[0]);
+        public int getLoopCount() => Int32.Parse(Parameters[1]);
+
+        public Loop(string Type, int GroupDepth, String[] Parameters) : base(Type, GroupDepth, Parameters)
         {
-            return Content;
         }
+
+        public void AddTimes(String Start, String End)
+        {
+            int StartParsed = Int32.Parse(Start);
+            if (StartParsed < ElemStart || ElemStart == -1)
+                ElemStart = StartParsed;
+
+            if (End != "")
+            {
+                int EndParsed = Int32.Parse(End);
+                if (EndParsed > ElemEnd || ElemEnd == -1)
+                    ElemEnd = EndParsed;
+            }
+        }
+
     }
 }

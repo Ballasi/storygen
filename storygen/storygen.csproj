@@ -36,6 +36,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -50,14 +51,18 @@
     <Compile Include="Examples\Pied Dust\PiedDust.cs" />
     <Compile Include="ExitSB\BackgroundManager.cs" />
     <Compile Include="ExitSB\Effect.cs" />
+    <Compile Include="ExitSB\Interface\CirclePresets.cs" />
+    <Compile Include="ExitSB\Interface\CircularElement.cs" />
     <Compile Include="ExitSB\Interface\UIElements.cs" />
     <Compile Include="ExitSB\Interface\UIrect.cs" />
     <Compile Include="ExitSB\Introduction\Introduction.cs" />
+    <Compile Include="ExitSB\Kiai\CircleKiai.cs" />
     <Compile Include="ExitSB\Kiai\KiaiManager.cs" />
     <Compile Include="ExitSB\Kiai\KiaiWubs.cs" />
     <Compile Include="ExitSB\Kiai\SpeedOfLight.cs" />
     <Compile Include="ExitSB\MainStoryboard.cs" />
     <Compile Include="ExitSB\SBFolderUpdater.cs" />
+    <Compile Include="ExitSB\Text\Sentence.cs" />
     <Compile Include="Mapset\Beatmap.cs" />
     <Compile Include="Mapset\HitObject.cs" />
     <Compile Include="Mapset\HitObjectTypes\Circle.cs" />
@@ -65,6 +70,8 @@
     <Compile Include="Mapset\HitObjectTypes\Spinner.cs" />
     <Compile Include="Mapset\Mapset.cs" />
     <Compile Include="Mapset\ControlPoint.cs" />
+    <Compile Include="Text\Font.cs" />
+    <Compile Include="Text\Text.cs" />
     <Compile Include="Util\Color.cs" />
     <Compile Include="Util\Mesh.cs" />
     <Compile Include="Util\Methods.cs" />

@@ -25,6 +25,8 @@ namespace storygen
 
         public Mapset Mapset;
 
+        public Text Text;
+
         public Osb()
         {
         }
@@ -68,6 +70,9 @@ namespace storygen
 
             // Setting up Mapset
             Mapset = new Mapset(FolderPath, getAllOsuFiles());
+
+            // Setting up Text
+            Text = new Text(FolderPath + @"sb\text\");
         }
 
         public void setFolderPath(String FolderPath)
@@ -110,15 +115,18 @@ namespace storygen
             String[] Content = System.IO.File.ReadAllLines(FilePath);
             
             Sprite CurrentSprite = null;
-            bool InGroup = false;
+            int GroupDepth = 0;
 
             foreach (String Line in Content)
             {
                 if (Line.StartsWith("//") || Line == "[Events]")
                     continue;
 
-                if (InGroup && !Line.StartsWith("  "))
-                    InGroup = false;
+                if (GroupDepth > 0 && !Line.Substring(GroupDepth).StartsWith(" "))
+                {
+                    GroupDepth--;
+                    CurrentSprite.EndLoop();
+                }
 
                 String[] Values = Line.Trim().Split(',');
                 
@@ -153,6 +161,7 @@ namespace storygen
                             int StartTime = Int32.Parse(Values[2]);
                             int EndTime = Int32.Parse(Values[3]);
                             CurrentSprite.OnTrigger(StartTime, EndTime, TriggerType);
+                            GroupDepth++;
                         }
                         break;
                     case "L":
@@ -160,6 +169,7 @@ namespace storygen
                             int StartTime = Int32.Parse(Values[1]);
                             int LoopCount = Int32.Parse(Values[2]);
                             CurrentSprite.BeginLoop(StartTime, LoopCount);
+                            GroupDepth++;
                         }
                         break;
                     default:
