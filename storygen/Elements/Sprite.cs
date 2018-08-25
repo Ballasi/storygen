@@ -21,8 +21,8 @@ namespace storygen
             this.Path = Path;
             this.Origin = Origin;
             Hidden = false;
-            this.X = X;
-            this.Y = Y;
+            this.X = Math.Round(X, 4);
+            this.Y = Math.Round(Y, 4);
 
             Affectations = new Affectations();
         }

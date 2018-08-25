@@ -79,7 +79,7 @@ namespace storygen
             Mapset = new Mapset(FolderPath, getAllOsuFiles());
 
             // Setting up Text
-            Text = new Text(FolderPath + @"sb\text\");
+            Text = new Text(@"sb\text\");
         }
 
         public void setFolderPath(String FolderPath)

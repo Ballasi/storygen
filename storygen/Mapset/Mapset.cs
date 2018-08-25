@@ -31,5 +31,6 @@ namespace storygen
         public String getCreator() => Creator;
         public double getBPM() => getBPMAt(Beatmaps[0].ControlPoints[0].getOffset());
         public double getBPMAt(double Time) => Beatmaps[0].getBPMAt(Time);
+        public double getBeatDurationAt(double Time) => 60000.0 / Beatmaps[0].getBPMAt(Time);
     }
 }
