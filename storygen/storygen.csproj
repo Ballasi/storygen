@@ -61,7 +61,8 @@
     <Compile Include="ExitSB\Kiai\SpeedOfLight.cs" />
     <Compile Include="ExitSB\MainStoryboard.cs" />
     <Compile Include="ExitSB\SBFolderUpdater.cs" />
-    <Compile Include="ExitSB\Text\Sentence.cs" />
+    <Compile Include="ExitSB\Text\Loading.cs" />
+    <Compile Include="ExitSB\Text\SBConsole.cs" />
     <Compile Include="Mapset\Beatmap.cs" />
     <Compile Include="Mapset\HitObject.cs" />
     <Compile Include="Mapset\HitObjectTypes\Circle.cs" />

@@ -49,7 +49,7 @@ namespace storygen
         public Vector2 getPositionAt(int Time)
         {
             double[] Output;
-            int InitialValue = 360;
+            int InitialValue = (int)X;
             double PositionX = InitialValue;
 
             if (Affectations.MovementsX.Count != 0)
@@ -63,7 +63,7 @@ namespace storygen
                 PositionX = Output[0];
             }
             
-            InitialValue = 240;
+            InitialValue = (int)Y;
             double PositionY = InitialValue;
 
             if (Affectations.MovementsY.Count != 0)

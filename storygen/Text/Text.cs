@@ -9,12 +9,13 @@ namespace storygen
     class Text
     {
         List<Font> Fonts { get; set; }
-        String Path;
+        String Path, StoryboardPath;
 
-        public Text(String Path)
+        public Text(String Path, String StoryboardPath)
         {
             Fonts = new List<Font>();
             this.Path = Path;
+            this.StoryboardPath = StoryboardPath;
         }
 
         public void ChangePath(String Path)
@@ -30,7 +31,7 @@ namespace storygen
                 currentId++;
             }
 
-            Font f = new Font(currentId, Name, Size, Path);
+            Font f = new Font(currentId, Name, Size, Path, StoryboardPath);
             Fonts.Add(f);
             return f;
         }

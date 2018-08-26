@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -15,26 +16,27 @@ namespace storygen
         String Name;
         double Size;
         System.Drawing.Font FontFamily;
-        String Path;
+        String Path, StoryboardPath;
         List<FontText> Sprites;
 
         public String getName() => Name;
         public double getSize() => Size;
         public int getId() => id;
 
-        public Font(int id, String Name, double Size, String Path)
+        public Font(int id, String Name, double Size, String Path, String StoryboardPath)
         {
             this.id = id;
             this.Name = Name;
             this.Size = Size;
             this.FontFamily = new System.Drawing.Font(Name, (float) (Size));
             this.Path = Path + Convert.ToString(id, 16) + "\\";
+            this.StoryboardPath = StoryboardPath;
             Sprites = new List<FontText>();
 
-            Directory.CreateDirectory(this.Path);
+            Directory.CreateDirectory(StoryboardPath + this.Path);
         }
 
-        public Sentence WriteSentence(String Text, int Time, Vector2 Position, Origin Origin, Layer Layer, TextAlign Alignment, bool ScaleSprite = true, double Scale = 480.0 / 1080.0)
+        public Sentence WriteSentence(String Text, int Time, Vector2 Position, Origin Origin, Layer Layer, TextAlign Alignment, bool ScaleSprite = true, bool CharByChar = true, double Scale = 480.0 / 1080.0)
         {
             Text = Text.Trim();
 
@@ -45,8 +47,11 @@ namespace storygen
 
             double SentenceSize = 0;
 
-            foreach (char c in Text)
-                SentenceSize += c == ' ' ? Scale * Size * 0.35 : Scale * CreateSprite(c.ToString()).getWidth() - Size * Scale * 0.45;
+            if (CharByChar)
+                foreach (char c in Text)
+                    SentenceSize += c == ' ' ? Scale * Size * 0.35 : Scale * CreateSprite(c.ToString()).getWidth() - Size * Scale * 0.45;
+            else
+                SentenceSize = Scale * CreateSprite(Text).getWidth() - Size * Scale;
 
             double XDec = - Size / 10;
             switch (Alignment)
@@ -65,79 +70,39 @@ namespace storygen
                         XDec -= SentenceSize;
                         break;
                     }
-            }   
+            }
 
-            foreach (char c in Text)
+            if (CharByChar)
             {
-                if (c.Equals(' '))
+                foreach (char c in Text)
                 {
-                    X += Scale * Size * 0.35;
-                    continue;
+                    if (c.Equals(' '))
+                    {
+                        X += Scale * Size * 0.35;
+                        continue;
+                    }
+                    
+                    FontText s = CreateSprite(c.ToString());
+                    Vector2 Dec = decByOrigin(Origin, Scale, s.getWidth(), s.getHeight());
+                    double LayerDecX = Dec.X, LayerDecY = Dec.Y;
+
+                    Sprite Sprite = Layer.CreateSprite(Path + s.getFileName() + ".png", Origin, X + LayerDecX + XDec, Y + LayerDecY);
+                    if (ScaleSprite)
+                        Sprite.Scale(Time, Scale);
+
+                    X += Scale * s.getWidth() - Size * Scale * 0.45;
+                    TextSprites.Add(Sprite);
                 }
-
-                double LayerDecX = 0;
-                double LayerDecY = 0;
-                FontText s = CreateSprite(c.ToString());
-                int Width = s.getWidth();
-                int Height = s.getHeight();
-
-                switch (Origin.getName())
-                {
-                    case "TopLeft":
-                        {
-                            break;
-                        }
-                    case "TopCentre":
-                        {
-                            LayerDecX += Scale * Width / 2;
-                            break;
-                        }
-                    case "TopRight":
-                        {
-                            LayerDecX += Scale * Width;
-                            break;
-                        }
-                    case "CentreLeft":
-                        {
-                            LayerDecY += Scale * Height / 2;
-                            break;
-                        }
-                    case "Centre":
-                        {
-                            LayerDecX += Scale * Width / 2;
-                            LayerDecY += Scale * Height / 2;
-                            break;
-                        }
-                    case "CentreRight":
-                        {
-                            LayerDecX += Scale * Width;
-                            LayerDecY += Scale * Height / 2;
-                            break;
-                        }
-                    case "BottomLeft":
-                        {
-                            LayerDecY += Scale * Height;
-                            break;
-                        }
-                    case "BottomCentre":
-                        {
-                            LayerDecX += Scale * Width / 2;
-                            LayerDecY += Scale * Height;
-                            break;
-                        }
-                    case "BottomRight":
-                        {
-                            LayerDecX += Scale * Width;
-                            LayerDecY += Scale * Height;
-                            break;
-                        }
-                }
-
+            }
+            else
+            {
+                FontText s = CreateSprite(Text);
+                Vector2 Dec = decByOrigin(Origin, Scale, s.getWidth(), s.getHeight());
+                double LayerDecX = Dec.X, LayerDecY = Dec.Y;
                 Sprite Sprite = Layer.CreateSprite(Path + s.getFileName() + ".png", Origin, X + LayerDecX + XDec, Y + LayerDecY);
                 if (ScaleSprite)
                     Sprite.Scale(Time, Scale);
 
-                X += Scale * s.getWidth() - Size * Scale * 0.45;
                 TextSprites.Add(Sprite);
             }
 
@@ -154,7 +119,7 @@ namespace storygen
 
             String StringId = Convert.ToString(Sprites.Count, 16);
             Image i = DrawText(Text);
-            i.Save(Path + StringId + ".png", System.Drawing.Imaging.ImageFormat.Png);
+            i.Save(StoryboardPath + Path + StringId + ".png", System.Drawing.Imaging.ImageFormat.Png);
             FontText s = new FontText(Text, StringId, i.Width, i.Height);
             Sprites.Add(s);
             return s;
@@ -176,6 +141,10 @@ namespace storygen
             
             Brush textBrush = new SolidBrush(System.Drawing.Color.White);
 
+            drawing.CompositingQuality = CompositingQuality.HighQuality;
+            drawing.InterpolationMode = InterpolationMode.HighQualityBilinear;
+            drawing.PixelOffsetMode = PixelOffsetMode.HighQuality;
+            drawing.SmoothingMode = SmoothingMode.HighQuality;
             drawing.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit;
 
             drawing.DrawString(text, FontFamily, textBrush, 0, 0);
@@ -186,6 +155,63 @@ namespace storygen
             drawing.Dispose();
 
             return img;
+        }
+
+        private Vector2 decByOrigin(Origin Origin, double Scale, double Width, double Height)
+        {
+            double LayerDecX = 0, LayerDecY = 0;
+            switch (Origin.getName())
+            {
+                case "TopLeft":
+                    {
+                        break;
+                    }
+                case "TopCentre":
+                    {
+                        LayerDecX += Scale * Width / 2;
+                        break;
+                    }
+                case "TopRight":
+                    {
+                        LayerDecX += Scale * Width;
+                        break;
+                    }
+                case "CentreLeft":
+                    {
+                        LayerDecY += Scale * Height / 2;
+                        break;
+                    }
+                case "Centre":
+                    {
+                        LayerDecX += Scale * Width / 2;
+                        LayerDecY += Scale * Height / 2;
+                        break;
+                    }
+                case "CentreRight":
+                    {
+                        LayerDecX += Scale * Width;
+                        LayerDecY += Scale * Height / 2;
+                        break;
+                    }
+                case "BottomLeft":
+                    {
+                        LayerDecY += Scale * Height;
+                        break;
+                    }
+                case "BottomCentre":
+                    {
+                        LayerDecX += Scale * Width / 2;
+                        LayerDecY += Scale * Height;
+                        break;
+                    }
+                case "BottomRight":
+                    {
+                        LayerDecX += Scale * Width;
+                        LayerDecY += Scale * Height;
+                        break;
+                    }
+            }
+            return new Vector2(LayerDecX, LayerDecY);
         }
     }
 

@@ -79,7 +79,7 @@ namespace storygen
             Mapset = new Mapset(FolderPath, getAllOsuFiles());
 
             // Setting up Text
-            Text = new Text(@"sb\text\");
+            Text = new Text(@"sb\text\", FolderPath);
         }
 
         public void setFolderPath(String FolderPath)
@@ -333,7 +333,7 @@ namespace storygen
 
             Content += "//Storyboard Sound Samples\n";
             
-            System.IO.File.WriteAllText(FilePath, Content);                
+            System.IO.File.WriteAllText(FilePath, Content);               
 
             foreach (Beatmap Beatmap in Mapset.getBeatmaps())
                 Beatmap.Export();
