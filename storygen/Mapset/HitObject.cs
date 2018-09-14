@@ -8,17 +8,19 @@ namespace storygen
         HitObjectType Type;
         Vector2 Position;
         public double StartTime;
+        public Color Color { get; }
         public virtual double EndTime => StartTime;
 
         public HitObject()
         {
         }
 
-        public HitObject(HitObjectType Type, Vector2 Position, double Time)
+        public HitObject(HitObjectType Type, Vector2 Position, double Time, Color Color)
         {
             this.Type = Type;
             this.Position = Position;
             StartTime = Time;
+            this.Color = Color;
         }
 
         public HitObjectType getType() => Type.HasFlag(HitObjectType.Circle) ? HitObjectType.Circle : (Type.HasFlag(HitObjectType.Slider) ? HitObjectType.Slider : HitObjectType.Spinner);

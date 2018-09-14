@@ -7,7 +7,7 @@ namespace storygen
         public double endTime;
         public override double EndTime => endTime;
 
-        public Spinner(HitObjectType Type, Vector2 Position, double StartTime, double EndTime) : base(Type, Position, StartTime)
+        public Spinner(HitObjectType Type, Vector2 Position, double StartTime, Color Color, double EndTime) : base(Type, Position, StartTime, Color)
         {
             endTime = EndTime;
         }

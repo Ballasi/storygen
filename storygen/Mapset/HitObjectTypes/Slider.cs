@@ -11,7 +11,7 @@ namespace storygen
         SliderCurveType CurveType;
         List<Vector2> PointsPosition;
 
-        public Slider(HitObjectType Type, Vector2 Position, double Time, double[] VelocityParameters, String[] Parameters) : base(Type, Position, Time)
+        public Slider(HitObjectType Type, Vector2 Position, double Time, Color Color, double[] VelocityParameters, String[] Parameters) : base(Type, Position, Time, Color)
         {
             this.Parameters = Parameters;
             PointsPosition = new List<Vector2>();
